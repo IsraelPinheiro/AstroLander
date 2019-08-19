@@ -1,12 +1,8 @@
------------------------------------------------------------------------------------------
---
--- main.lua
---
------------------------------------------------------------------------------------------
-
--- Your code here
-
 local composer = require( "composer" )
-bestScore = 0
 
+display.setStatusBar(display.HiddenStatusBar)
+local centerX = display.contentCenterX
+local centerY = display.contentCenterY
+
+bestScore = 0
 composer.gotoScene("scenes.start", { params={} })
