@@ -1,7 +1,35 @@
 local composer = require( "composer" )
  
 local scene = composer.newScene()
- 
+
+
+local function nextPlanet(event)
+    if ( event.phase == "ended" ) then
+        if (selectedPlanet == 3) then
+            selectedPlanet = 1
+        else
+            selectedPlanet = selectedPlanet + 1
+        end
+        print(selectedPlanet)
+    end
+end
+
+local function previousPlanet(event)
+    if ( event.phase == "ended" ) then
+        if (selectedPlanet == 1) then
+            selectedPlanet = 3
+        else
+            selectedPlanet = selectedPlanet - 1
+        end
+        print(selectedPlanet)
+    end
+end
+
+local function selectPlanet(event)
+    if ( event.phase == "ended" ) then
+
+    end
+end
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -30,23 +58,27 @@ function scene:create( event )
     -- Planet
     local planet = display.newImage(planets[selectedPlanet])
     planet.anchorX, planet.anchorY = 0.5, 0.5
-    planet.x, planet.y = centerX, centerY
+    planet.x, planet.y = centerX, planet.height/2 + 130
 
     -- Buttons
     -- Arrow Left
     local buttonLeft = display.newImage("assets/img/ui/left.png")
     buttonLeft.anchorX, buttonLeft.anchorY = 0, 0.5 
     buttonLeft.x, buttonLeft.y = 50, centerY
+    buttonLeft:addEventListener( "touch", previousPlanet)
 
     -- Arrow Right
     local buttonRight = display.newImage("assets/img/ui/right.png")
     buttonRight.anchorX, buttonRight.anchorY = 1, 0.5
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
+    buttonRight:addEventListener( "touch", nextPlanet)
 
     -- Select
     local buttonSelect = display.newImage("assets/img/ui/select.png")
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
     buttonSelect.x, buttonSelect.y = centerX, screenHeight -50
+
+    buttonSelect:addEventListener( "touch", selectPlanet)
     
 end
  
