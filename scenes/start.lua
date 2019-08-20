@@ -1,4 +1,10 @@
 local composer = require( "composer" )
+
+local function start(event)
+    if ( event.phase == "ended" ) then
+        print("Teste")
+    end
+end
  
 local scene = composer.newScene()
  
@@ -8,18 +14,40 @@ local scene = composer.newScene()
 -- -----------------------------------------------------------------------------------
  
  
- 
- 
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
  
 -- create()
 function scene:create( event )
- 
     local sceneGroup = self.view
+
+
     -- Code here runs when the scene is first created but has not yet appeared on screen
- 
+
+    --Load Music
+    local menuMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+    audio.play(menuMusic, {fadein = 1000, loops = -1})
+    -- Background Image
+    local background = display.newImage("assets/img/ui/background.png")
+    background.x, background.y = centerX, centerY
+    background.width, background.height = screenWidth*2, screenHeight*2
+
+    -- Start Screen Logo
+    local logo = display.newImage("assets/img/ui/logo.png")
+    logo.alpha = 0
+    logo.x, logo.y = centerX, logo.height/2 + 130
+    transition.to(logo, { alpha=1, time = 4000, delay=500})
+
+    local buttonStart = display.newImage("assets/img/ui/start.png")
+    buttonStart.x, buttonStart.y = centerX, screenHeight - buttonStart.height/2 - 100
+    buttonStart.alpha = 0
+    transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
+
+    buttonStart:addEventListener( "touch", start)
+
+    
+
 end
  
  
@@ -37,7 +65,6 @@ function scene:show( event )
  
     end
 end
- 
  
 -- hide()
 function scene:hide( event )
@@ -63,6 +90,7 @@ function scene:destroy( event )
  
 end
  
+
  
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
