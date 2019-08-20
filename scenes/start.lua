@@ -2,7 +2,7 @@ local composer = require( "composer" )
 
 local function start(event)
     if ( event.phase == "ended" ) then
-        print("Teste")
+        composer.gotoScene("scenes.planets", { params={} })
     end
 end
  
@@ -45,9 +45,6 @@ function scene:create( event )
     transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
 
     buttonStart:addEventListener( "touch", start)
-
-    
-
 end
  
  
