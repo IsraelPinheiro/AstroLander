@@ -11,8 +11,8 @@ ships_mini = {"assets/img/ships/apollo_mini.png", "assets/img/ships/dragon_mini.
 screenWidth = display.contentWidth
 screenHeight = display.contentHeight
 
-selectedPlanet = nil
-selectedShip = nil
+selectedPlanet = 1
+selectedShip = 1
 bestScore = 0
 
 composer.gotoScene("scenes.start", { params={} })
