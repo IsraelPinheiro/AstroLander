@@ -19,7 +19,35 @@ function scene:create( event )
  
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
- 
+
+
+    -- Background Image
+    local background = display.newImage("assets/img/ui/background.png")
+    background.x, background.y = centerX, centerY
+    background.width, background.height = screenWidth*2, screenHeight*2
+
+
+    -- Planet
+    local planet = display.newImage(planets[selectedPlanet])
+    planet.anchorX, planet.anchorY = 0.5, 0.5
+    planet.x, planet.y = centerX, centerY
+
+    -- Buttons
+    -- Arrow Left
+    local buttonLeft = display.newImage("assets/img/ui/left.png")
+    buttonLeft.anchorX, buttonLeft.anchorY = 0, 0.5 
+    buttonLeft.x, buttonLeft.y = 50, centerY
+
+    -- Arrow Right
+    local buttonRight = display.newImage("assets/img/ui/right.png")
+    buttonRight.anchorX, buttonRight.anchorY = 1, 0.5
+    buttonRight.x, buttonRight.y = screenWidth-50, centerY
+
+    -- Select
+    local buttonSelect = display.newImage("assets/img/ui/select.png")
+    buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
+    buttonSelect.x, buttonSelect.y = centerX, screenHeight -50
+    
 end
  
  
