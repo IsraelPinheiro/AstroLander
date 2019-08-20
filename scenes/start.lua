@@ -39,12 +39,14 @@ function scene:create( event )
     logo.x, logo.y = centerX, logo.height/2 + 130
     transition.to(logo, { alpha=1, time = 4000, delay=500})
 
+    -- Start Button
     local buttonStart = display.newImage("assets/img/ui/start.png")
-    buttonStart.x, buttonStart.y = centerX, screenHeight - buttonStart.height/2 - 100
+    buttonStart.anchorX, buttonStart.anchorY = 0.5, 1
+    buttonStart.x, buttonStart.y = centerX, screenHeight -50
     buttonStart.alpha = 0
     transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
-
     buttonStart:addEventListener( "touch", start)
+    
 end
  
  
