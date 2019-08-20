@@ -25,9 +25,9 @@ function scene:create( event )
 
     -- Code here runs when the scene is first created but has not yet appeared on screen
 
-    --Load Music
+    -- Load Music
     local menuMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
-    audio.play(menuMusic, {fadein = 1000, loops = -1})
+    audio.play(menuMusic, {channel = 1, fadein = 1000, loops = -1})
     -- Background Image
     local background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
@@ -55,6 +55,7 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
+        
         -- Code here runs when the scene is still off screen (but is about to come on screen)
  
     elseif ( phase == "did" ) then
@@ -70,6 +71,7 @@ function scene:hide( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
+        audio.stop(1)
         -- Code here runs when the scene is on screen (but is about to go off screen)
  
     elseif ( phase == "did" ) then
