@@ -10,7 +10,7 @@ local function nextShip(event)
         else
             selectedShip = selectedShip + 1
         end
-        Ship:setFrame(selectedShip)
+        ship:setFrame(selectedShip)
     end
 end
 
@@ -21,7 +21,7 @@ local function previousShip(event)
         else
             selectedShip = selectedShip - 1
         end
-        Ship:setFrame(selectedShip)
+        ship:setFrame(selectedShip)
     end
 end
 
@@ -56,7 +56,7 @@ function scene:create( event )
 
 
     -- Planet
-    ship = display.newSprite(ships, {start=1, count=3 })
+    ship = display.newSprite(ships_full, {start=1, count=3 })
     ship.anchorX, ship.anchorY = 0.5, 0.5
     ship.x, ship.y = centerX, ship.height/2 + 130
 
@@ -73,12 +73,12 @@ function scene:create( event )
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
     buttonRight:addEventListener( "touch", nextShip)
 
-    -- Select
-    local buttonSelect = display.newImage("assets/img/ui/select.png")
-    buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
-    buttonSelect.x, buttonSelect.y = centerX, screenHeight -50
+    -- Launch
+    local buttonLaunch = display.newImage("assets/img/ui/launch.png")
+    buttonLaunch.anchorX, buttonLaunch.anchorY = 0.5, 1
+    buttonLaunch.x, buttonLaunch.y = centerX, screenHeight -50
 
-    buttonSelect:addEventListener( "touch", launchShip)
+    buttonLaunch:addEventListener( "touch", launchShip)
     
 end
  
