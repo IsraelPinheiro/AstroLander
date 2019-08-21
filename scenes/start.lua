@@ -5,6 +5,16 @@ local function start(event)
         composer.gotoScene("scenes.planets", { params={} })
     end
 end
+
+local function shakeListener( event )
+    if (event.isShake) then
+        if (logo.frame == 3) then
+            logo:setFrame(1)
+        else
+            logo:setFrame(logo.frame+1)
+        end
+    end
+end
  
 local scene = composer.newScene()
  
@@ -22,7 +32,6 @@ local scene = composer.newScene()
 function scene:create( event )
     local sceneGroup = self.view
 
-
     -- Code here runs when the scene is first created but has not yet appeared on screen
 
     -- Load Music
@@ -34,7 +43,8 @@ function scene:create( event )
     background.width, background.height = screenWidth*2, screenHeight*2
 
     -- Start Screen Logo
-    local logo = display.newImage("assets/img/ui/logo.png")
+    logo = display.newSprite(logos, {start=1, count=3 })
+    logo:setFrame(math.random(1,logo.numFrames))
     logo.alpha = 0
     logo.x, logo.y = centerX, logo.height/2 + 130
     transition.to(logo, { alpha=1, time = 4000, delay=500})
@@ -46,6 +56,9 @@ function scene:create( event )
     buttonStart.alpha = 0
     transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
     buttonStart:addEventListener( "touch", start)
+
+    -- Shake Listener
+    Runtime:addEventListener( "accelerometer", shakeListener )
     
 end
  
