@@ -10,7 +10,7 @@ local function nextPlanet(event)
         else
             selectedPlanet = selectedPlanet + 1
         end
-        print(selectedPlanet)
+        planet:setFrame(selectedPlanet)
     end
 end
 
@@ -21,7 +21,7 @@ local function previousPlanet(event)
         else
             selectedPlanet = selectedPlanet - 1
         end
-        print(selectedPlanet)
+        planet:setFrame(selectedPlanet)
     end
 end
 
@@ -56,7 +56,7 @@ function scene:create( event )
 
 
     -- Planet
-    local planet = display.newImage(planets[selectedPlanet])
+    planet = display.newSprite(planets, {start=1, count=3 })
     planet.anchorX, planet.anchorY = 0.5, 0.5
     planet.x, planet.y = centerX, planet.height/2 + 130
 
