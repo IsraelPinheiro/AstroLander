@@ -27,7 +27,7 @@ end
 
 local function selectPlanet(event)
     if ( event.phase == "ended" ) then
-
+        composer.gotoScene("scenes.ships", { params={} })
     end
 end
 -- -----------------------------------------------------------------------------------
