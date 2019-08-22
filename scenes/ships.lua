@@ -30,6 +30,12 @@ local function launchShip(event)
         composer.gotoScene("scenes.game", { params={} })
     end
 end
+
+local function goBack(event)
+    if ( event.phase == "ended" ) then
+        --TODO: goBack Action
+    end
+end
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -52,7 +58,7 @@ function scene:create( event )
     background.width, background.height = screenWidth*2, screenHeight*2
 
 
-    -- Planet
+    -- Ship
     ship = display.newSprite(ships_full, {start=1, count=3 })
     ship.anchorX, ship.anchorY = 0.5, 0.5
     ship.x, ship.y = centerX, ship.height/2 + 140
@@ -69,6 +75,12 @@ function scene:create( event )
     buttonRight.anchorX, buttonRight.anchorY = 1, 0.5
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
     buttonRight:addEventListener( "touch", nextShip)
+
+    -- Back
+    local buttonBack = display.newImage("assets/img/ui/back.png")
+    buttonBack.anchorX, buttonBack.anchorY = 0, 0
+    buttonBack.x, buttonBack.y = 30, 30
+    buttonBack:addEventListener( "touch", goBack)
 
     -- Launch
     local buttonLaunch = display.newImage("assets/img/ui/launch.png")
