@@ -30,13 +30,16 @@ local function selectPlanet(event)
         composer.gotoScene("scenes.ships", { params={} })
     end
 end
+
+local function goBack(event)
+    if ( event.phase == "ended" ) then
+        --TODO: goBack Action
+    end
+end
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
- 
- 
- 
  
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
@@ -69,14 +72,19 @@ function scene:create( event )
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
     buttonRight:addEventListener( "touch", nextPlanet)
 
+    -- Back
+    local buttonBack = display.newImage("assets/img/ui/back.png")
+    buttonBack.anchorX, buttonBack.anchorY = 0, 0
+    buttonBack.x, buttonBack.y = 30, 30
+    buttonBack:addEventListener( "touch", goBack)
+
     -- Select
     local buttonSelect = display.newImage("assets/img/ui/select.png")
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
     buttonSelect.x, buttonSelect.y = centerX, screenHeight - 100
-
     buttonSelect:addEventListener( "touch", selectPlanet)
+
 end
- 
  
 -- show()
 function scene:show( event )
@@ -93,7 +101,6 @@ function scene:show( event )
     end
 end
  
- 
 -- hide()
 function scene:hide( event )
  
@@ -105,10 +112,10 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
+        composer.removeScene("scenes.planets")
  
     end
 end
- 
  
 -- destroy()
 function scene:destroy( event )
@@ -117,7 +124,6 @@ function scene:destroy( event )
     -- Code here runs prior to the removal of scene's view
  
 end
- 
  
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
