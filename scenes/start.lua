@@ -32,11 +32,9 @@ local scene = composer.newScene()
 function scene:create( event )
     local sceneGroup = self.view
 
-    -- Code here runs when the scene is first created but has not yet appeared on screen
-
     -- Load Music
-    local menuMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
-    audio.play(menuMusic, {channel = 1, fadein = 1000, loops = -1})
+    menuMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+    
     -- Background Image
     local background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
@@ -46,13 +44,13 @@ function scene:create( event )
     logo = display.newSprite(logos, {start=1, count=3 })
     logo:setFrame(math.random(1,logo.numFrames))
     logo.alpha = 0
-    logo.x, logo.y = centerX, logo.height/2 + 130
+    logo.x, logo.y = centerX, logo.height/2 + 140
     transition.to(logo, { alpha=1, time = 4000, delay=500})
 
     -- Start Button
     local buttonStart = display.newImage("assets/img/ui/start.png")
     buttonStart.anchorX, buttonStart.anchorY = 0.5, 1
-    buttonStart.x, buttonStart.y = centerX, screenHeight -50
+    buttonStart.x, buttonStart.y = centerX, screenHeight - 100
     buttonStart.alpha = 0
     transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
     buttonStart:addEventListener( "touch", start)
@@ -70,11 +68,9 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
+        audio.play(menuMusic, {channel = 1, fadein = 1000, loops = -1})
  
     elseif ( phase == "did" ) then
-        -- Code here runs when the scene is entirely on screen
  
     end
 end
@@ -86,25 +82,18 @@ function scene:hide( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        audio.stop(1)
-        -- Code here runs when the scene is on screen (but is about to go off screen)
- 
+        
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
- 
+        audio.stop(1)
     end
 end
  
  
 -- destroy()
 function scene:destroy( event )
- 
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
  
 end
- 
-
  
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
