@@ -44,21 +44,17 @@ end
  
 -- create()
 function scene:create( event )
- 
     local sceneGroup = self.view
-    -- Code here runs when the scene is first created but has not yet appeared on screen
-
 
     -- Background Image
     local background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*2, screenHeight*2
 
-
     -- Planet
     planet = display.newSprite(planets, {start=1, count=3 })
     planet.anchorX, planet.anchorY = 0.5, 0.5
-    planet.x, planet.y = centerX, planet.height/2 + 130
+    planet.x, planet.y = centerX, planet.height/2 + 140
 
     -- Buttons
     -- Arrow Left
@@ -76,10 +72,9 @@ function scene:create( event )
     -- Select
     local buttonSelect = display.newImage("assets/img/ui/select.png")
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
-    buttonSelect.x, buttonSelect.y = centerX, screenHeight -50
+    buttonSelect.x, buttonSelect.y = centerX, screenHeight - 100
 
     buttonSelect:addEventListener( "touch", selectPlanet)
-    
 end
  
  

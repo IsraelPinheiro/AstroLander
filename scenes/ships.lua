@@ -34,10 +34,7 @@ end
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
- 
- 
- 
- 
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -58,7 +55,7 @@ function scene:create( event )
     -- Planet
     ship = display.newSprite(ships_full, {start=1, count=3 })
     ship.anchorX, ship.anchorY = 0.5, 0.5
-    ship.x, ship.y = centerX, ship.height/2 + 130
+    ship.x, ship.y = centerX, ship.height/2 + 140
 
     -- Buttons
     -- Arrow Left
@@ -76,7 +73,7 @@ function scene:create( event )
     -- Launch
     local buttonLaunch = display.newImage("assets/img/ui/launch.png")
     buttonLaunch.anchorX, buttonLaunch.anchorY = 0.5, 1
-    buttonLaunch.x, buttonLaunch.y = centerX, screenHeight -50
+    buttonLaunch.x, buttonLaunch.y = centerX, screenHeight - 100
 
     buttonLaunch:addEventListener( "touch", launchShip)
     
