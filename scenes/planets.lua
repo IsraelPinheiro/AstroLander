@@ -1,7 +1,14 @@
 local composer = require( "composer" )
- 
 local scene = composer.newScene()
+composer.recycleOnSceneChange = true
 
+-- UI Elements
+local background
+local planet
+local buttonLeft
+local buttonRight
+local buttonSelect
+local buttonBack
 
 local function nextPlanet(event)
     if ( event.phase == "ended" ) then
@@ -50,7 +57,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Background Image
-    local background = display.newImage("assets/img/ui/background.png")
+    background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*2, screenHeight*2
 
@@ -61,25 +68,25 @@ function scene:create( event )
 
     -- Buttons
     -- Arrow Left
-    local buttonLeft = display.newImage("assets/img/ui/left.png")
+    buttonLeft = display.newImage("assets/img/ui/left.png")
     buttonLeft.anchorX, buttonLeft.anchorY = 0, 0.5 
     buttonLeft.x, buttonLeft.y = 50, centerY
     buttonLeft:addEventListener( "touch", previousPlanet)
 
     -- Arrow Right
-    local buttonRight = display.newImage("assets/img/ui/right.png")
+    buttonRight = display.newImage("assets/img/ui/right.png")
     buttonRight.anchorX, buttonRight.anchorY = 1, 0.5
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
     buttonRight:addEventListener( "touch", nextPlanet)
 
     -- Back
-    local buttonBack = display.newImage("assets/img/ui/back.png")
+    buttonBack = display.newImage("assets/img/ui/back.png")
     buttonBack.anchorX, buttonBack.anchorY = 0, 0
     buttonBack.x, buttonBack.y = 30, 30
     buttonBack:addEventListener( "touch", goBack)
 
     -- Select
-    local buttonSelect = display.newImage("assets/img/ui/select.png")
+    buttonSelect = display.newImage("assets/img/ui/select.png")
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
     buttonSelect.x, buttonSelect.y = centerX, screenHeight - 100
     buttonSelect:addEventListener( "touch", selectPlanet)
