@@ -10,6 +10,7 @@ local buttonRight
 local buttonSelect
 local buttonBack
 
+-- Event Functions
 local function nextPlanet(event)
     if ( event.phase == "ended" ) then
         if (selectedPlanet == 3) then
@@ -95,7 +96,6 @@ end
  
 -- show()
 function scene:show( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
  
@@ -110,7 +110,6 @@ end
  
 -- hide()
 function scene:hide( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
  
