@@ -1,5 +1,14 @@
 local composer = require( "composer" )
+local scene = composer.newScene()
+composer.recycleOnSceneChange = true
 
+--UI Elements
+local bgMusic
+local background
+local logo
+local buttonStart
+
+-- Event functions
 local function start(event)
     if ( event.phase == "ended" ) then
         composer.gotoScene("scenes.planets", { params={} })
@@ -16,27 +25,24 @@ local function shakeListener( event )
     end
 end
  
-local scene = composer.newScene()
- 
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
 -- -----------------------------------------------------------------------------------
- 
- 
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
- 
+
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
 
     -- Load Music
-    menuMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+    bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
     
     -- Background Image
-    local background = display.newImage("assets/img/ui/background.png")
+    background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*2, screenHeight*2
 
@@ -48,7 +54,7 @@ function scene:create( event )
     transition.to(logo, { alpha=1, time = 4000, delay=500})
 
     -- Start Button
-    local buttonStart = display.newImage("assets/img/ui/start.png")
+    buttonStart = display.newImage("assets/img/ui/start.png")
     buttonStart.anchorX, buttonStart.anchorY = 0.5, 1
     buttonStart.x, buttonStart.y = centerX, screenHeight - 100
     buttonStart.alpha = 0
@@ -59,42 +65,38 @@ function scene:create( event )
     Runtime:addEventListener( "accelerometer", shakeListener )
     
 end
- 
- 
+
 -- show()
 function scene:show( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
-        audio.play(menuMusic, {channel = 1, fadein = 1000, loops = -1})
+        audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
  
     elseif ( phase == "did" ) then
  
     end
 end
- 
+
 -- hide()
 function scene:hide( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
- 
+
     if ( phase == "will" ) then
-        
+
     elseif ( phase == "did" ) then
         audio.stop(1)
     end
 end
- 
- 
+
 -- destroy()
 function scene:destroy( event )
     local sceneGroup = self.view
- 
+
 end
- 
+
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
 -- -----------------------------------------------------------------------------------
@@ -103,5 +105,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
- 
+
 return scene
