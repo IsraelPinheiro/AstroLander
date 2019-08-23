@@ -1,8 +1,16 @@
 local composer = require( "composer" )
- 
 local scene = composer.newScene()
+composer.recycleOnSceneChange = true
 
+-- UI Elements
+local background
+local ship
+local buttonLeft
+local buttonRight
+local buttonLaunch
+local buttonBack
 
+-- Event Functions
 local function nextShip(event)
     if ( event.phase == "ended" ) then
         if (selectedShip == 3) then
@@ -47,16 +55,13 @@ end
  
 -- create()
 function scene:create( event )
- 
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
 
-
     -- Background Image
-    local background = display.newImage("assets/img/ui/background.png")
+    background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*2, screenHeight*2
-
 
     -- Ship
     ship = display.newSprite(ships_full, {start=1, count=3 })
@@ -65,33 +70,31 @@ function scene:create( event )
 
     -- Buttons
     -- Arrow Left
-    local buttonLeft = display.newImage("assets/img/ui/left.png")
+    buttonLeft = display.newImage("assets/img/ui/left.png")
     buttonLeft.anchorX, buttonLeft.anchorY = 0, 0.5 
     buttonLeft.x, buttonLeft.y = 50, centerY
     buttonLeft:addEventListener( "touch", previousShip)
 
     -- Arrow Right
-    local buttonRight = display.newImage("assets/img/ui/right.png")
+    buttonRight = display.newImage("assets/img/ui/right.png")
     buttonRight.anchorX, buttonRight.anchorY = 1, 0.5
     buttonRight.x, buttonRight.y = screenWidth-50, centerY
     buttonRight:addEventListener( "touch", nextShip)
 
     -- Back
-    local buttonBack = display.newImage("assets/img/ui/back.png")
+    buttonBack = display.newImage("assets/img/ui/back.png")
     buttonBack.anchorX, buttonBack.anchorY = 0, 0
     buttonBack.x, buttonBack.y = 30, 30
     buttonBack:addEventListener( "touch", goBack)
 
     -- Launch
-    local buttonLaunch = display.newImage("assets/img/ui/launch.png")
+    buttonLaunch = display.newImage("assets/img/ui/launch.png")
     buttonLaunch.anchorX, buttonLaunch.anchorY = 0.5, 1
     buttonLaunch.x, buttonLaunch.y = centerX, screenHeight - 100
-
     buttonLaunch:addEventListener( "touch", launchShip)
-    
+
 end
- 
- 
+
 -- show()
 function scene:show( event )
     local sceneGroup = self.view
@@ -103,8 +106,7 @@ function scene:show( event )
         -- Code here runs when the scene is entirely on screen
     end
 end
- 
- 
+
 -- hide()
 function scene:hide( event )
  
@@ -117,8 +119,7 @@ function scene:hide( event )
         -- Code here runs immediately after the scene goes entirely off screen
     end
 end
- 
- 
+
 -- destroy()
 function scene:destroy( event )
  
@@ -126,8 +127,7 @@ function scene:destroy( event )
     -- Code here runs prior to the removal of scene's view
  
 end
- 
- 
+
 -- -----------------------------------------------------------------------------------
 -- Scene event function listeners
 -- -----------------------------------------------------------------------------------
@@ -136,5 +136,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
- 
+
 return scene
