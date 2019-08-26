@@ -64,8 +64,8 @@ function scene:create( event )
 
     -- Planet
     planet = display.newSprite(planets, {start=1, count=3 })
-    planet.anchorX, planet.anchorY = 0.5, 0.5
-    planet.x, planet.y = centerX, planet.height/2 + 140
+    planet.anchorX, planet.anchorY = 0.5, 0
+    planet.x, planet.y = centerX, 0
 
     -- Buttons
     -- Arrow Left
@@ -89,7 +89,7 @@ function scene:create( event )
     -- Select
     buttonSelect = display.newImage("assets/img/ui/select.png")
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
-    buttonSelect.x, buttonSelect.y = centerX, screenHeight - 100
+    buttonSelect.x, buttonSelect.y = centerX, screenHeight - 50
     buttonSelect:addEventListener( "touch", selectPlanet)
 
 end

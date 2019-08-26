@@ -22,40 +22,23 @@ logos = graphics.newImageSheet("assets/img/logos.png", {
 })
 
 -- Planets
-planets = graphics.newImageSheet("assets/img/planets.png", {
-    width = 500,
-    height = 500,
-    numFrames = 3,
-    sheetContentWidth = 1500,
-    sheetContentHeight = 500
-})
-
 planets_name = { "Moon","Mars","Neptune" }
 planets_G = { 1.62, 3.71, 11.15 }
+planets = graphics.newImageSheet("assets/img/planets.png", {
+    width = 500,
+    height = 830,
+    numFrames = 3,
+    sheetContentWidth = 1500,
+    sheetContentHeight = 830
+})
 
 -- Ships
-ships_full = graphics.newImageSheet("assets/img/ships_full.png", {
-    frames ={
-        {   -- Apollo Lander
-            x = 0,
-            y = 0,
-            width = 810,
-            height = 500
-        },
-        {   -- Dragon
-            x = 810,
-            y = 0,
-            width = 434,
-            height = 500
-        }
-        ,
-        {   -- Soyuz
-            x = 1244,
-            y = 0,
-            width = 202,
-            height = 500
-        }
-    }
+ships_full = graphics.newImageSheet("assets/img/ships.png", {
+    width = 1560,
+    height = 830,
+    numFrames = 3,
+    sheetContentWidth = 4680,
+    sheetContentHeight = 830
 })
 
 ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {

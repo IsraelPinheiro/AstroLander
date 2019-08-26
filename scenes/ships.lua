@@ -65,8 +65,8 @@ function scene:create( event )
 
     -- Ship
     ship = display.newSprite(ships_full, {start=1, count=3 })
-    ship.anchorX, ship.anchorY = 0.5, 0.5
-    ship.x, ship.y = centerX, ship.height/2 + 140
+    ship.anchorX, ship.anchorY = 0.5, 0
+    ship.x, ship.y = centerX, 0
 
     -- Buttons
     -- Arrow Left

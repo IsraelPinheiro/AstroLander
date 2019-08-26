@@ -50,13 +50,13 @@ function scene:create( event )
     logo = display.newSprite(logos, {start=1, count=3 })
     logo:setFrame(math.random(1,logo.numFrames))
     logo.alpha = 0
-    logo.x, logo.y = centerX, logo.height/2 + 140
+    logo.x, logo.y = centerX, logo.height/2 + 165
     transition.to(logo, { alpha=1, time = 4000, delay=500})
 
     -- Start Button
     buttonStart = display.newImage("assets/img/ui/start.png")
     buttonStart.anchorX, buttonStart.anchorY = 0.5, 1
-    buttonStart.x, buttonStart.y = centerX, screenHeight - 100
+    buttonStart.x, buttonStart.y = centerX, screenHeight - 50
     buttonStart.alpha = 0
     transition.to(buttonStart, { alpha=1, time = 4000, delay=1500})
     buttonStart:addEventListener( "touch", start)
