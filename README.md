@@ -6,9 +6,13 @@ Astro Lander is a Lunar Lander style game, made using Corona SDK, where you can 
 
 Just try to land safely, if that's not challenging enough for you, try landing on the special landing zones, getting you a multiplier for your final score
 
-
-![Main Menu](http://drive.google.com/uc?export=view&id=1SYGOAt-0hIAfhYli_iur4ycSsbbbPpA6)
-![Planet Selection](http://drive.google.com/uc?export=view&id=1jcX8LC-atWkAutXPLLCSt71ahWuuH8dY)
-![Ship Selection](http://drive.google.com/uc?export=view&id=1SnSXy_gtG08Jrq0ublP1oR2Q_T01Tfyx)
-![Gameplay](http://drive.google.com/uc?export=view&id=1qdG-5gZ8bStGA7LxXus5liNkjhb5kEWh)
-![Final Score](http://drive.google.com/uc?export=view&id=1Dl45etN12-9TFBCPvSuIfs0SxEMgNxn6)
+### Game Start
+![Game Start](http://drive.google.com/uc?export=view&id=13F2Zsaw9apieOVWDwT-LPGVyVqIBq9QW)
+### Planet Selection
+![Planet Selection](http://drive.google.com/uc?export=view&id=1Zw3zBcyQ0c6-JV-k8EJWAZaiLvO6CNr0)
+### Ship Selection
+![Ship Selection](http://drive.google.com/uc?export=view&id=1xtzWgpRzvYDhUYAx9MbCyZzI6XPVxZBz)
+### Gameplay
+![Gameplay](http://drive.google.com/uc?export=view&id=1lBe-4j--oCCicnXJWOhcelvGnvQWd8Em)
+### Game Over
+![Game Over](http://drive.google.com/uc?export=view&id=1d50W0IsFHymLj8AF1Yoa0fzIHt6C4OFR)
