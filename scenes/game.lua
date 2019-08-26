@@ -1,6 +1,6 @@
 local composer = require( "composer" )
- 
 local scene = composer.newScene()
+composer.recycleOnSceneChange = true
  
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
