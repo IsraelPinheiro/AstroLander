@@ -29,8 +29,8 @@ local function nextShip(event)
 end
 
 local function previousShip(event)
-    audio.play(sfx_buttons)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_buttons)
         if (selectedShip == 1) then
             selectedShip = 3
         else
