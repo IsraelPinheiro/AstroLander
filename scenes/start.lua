@@ -19,7 +19,7 @@ local function start(event)
     end
 end
 
-local function shakeListener( event )
+local function changeLogo( event )
     if (event.isShake) then
         if (logo.frame == 3) then
             logo:setFrame(1)
@@ -69,7 +69,7 @@ function scene:create( event )
     buttonStart:addEventListener( "touch", start)
 
     -- Shake Listener
-    Runtime:addEventListener( "accelerometer", shakeListener )
+    Runtime:addEventListener( "accelerometer", changeLogo )
     
 end
 
