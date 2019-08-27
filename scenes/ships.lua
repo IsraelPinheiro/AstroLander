@@ -42,6 +42,7 @@ end
 
 local function launchShip(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_select)
         composer.gotoScene("scenes.game")
     end
 end

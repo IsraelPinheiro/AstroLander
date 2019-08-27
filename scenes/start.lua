@@ -2,8 +2,11 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 composer.recycleOnSceneChange = true
 
---UI Elements
+-- SFX
 local bgMusic
+local sfx_select
+
+--UI Elements
 local background
 local logo
 local buttonStart
@@ -11,6 +14,7 @@ local buttonStart
 -- Event functions
 local function start(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_select)
         composer.gotoScene("scenes.planets", { params={} })
     end
 end
@@ -40,6 +44,9 @@ function scene:create( event )
 
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+
+    --Load SFX
+    sfx_select = audio.loadSound("assets/sounds/sfx/Beep.wav")
     
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
