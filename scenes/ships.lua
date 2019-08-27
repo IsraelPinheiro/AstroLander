@@ -2,6 +2,11 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 composer.recycleOnSceneChange = true
 
+-- SFX
+local bgMusic
+local sfx_buttons
+local sfx_select
+
 -- UI Elements
 local background
 local ship
@@ -13,6 +18,7 @@ local buttonBack
 -- Event Functions
 local function nextShip(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_buttons)
         if (selectedShip == 3) then
             selectedShip = 1
         else
@@ -23,6 +29,7 @@ local function nextShip(event)
 end
 
 local function previousShip(event)
+    audio.play(sfx_buttons)
     if ( event.phase == "ended" ) then
         if (selectedShip == 1) then
             selectedShip = 3
@@ -35,13 +42,13 @@ end
 
 local function launchShip(event)
     if ( event.phase == "ended" ) then
-        composer.gotoScene("scenes.game", { params={} })
+        composer.gotoScene("scenes.game")
     end
 end
 
 local function goBack(event)
     if ( event.phase == "ended" ) then
-        --TODO: goBack Action
+        composer.gotoScene("scenes.planets")
     end
 end
 -- -----------------------------------------------------------------------------------
@@ -56,7 +63,13 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
-    -- Code here runs when the scene is first created but has not yet appeared on screen
+
+    -- Load Music
+    bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+
+    -- Load SFX
+    sfx_buttons = audio.loadSound("assets/sounds/sfx/Beep.wav")
+    sfx_select = audio.loadSound("assets/sounds/sfx/Beep.wav")
 
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
@@ -90,7 +103,7 @@ function scene:create( event )
     -- Launch
     buttonLaunch = display.newImage("assets/img/ui/launch.png")
     buttonLaunch.anchorX, buttonLaunch.anchorY = 0.5, 1
-    buttonLaunch.x, buttonLaunch.y = centerX, screenHeight - 100
+    buttonLaunch.x, buttonLaunch.y = centerX, screenHeight - 50
     buttonLaunch:addEventListener( "touch", launchShip)
 
 end
@@ -101,7 +114,7 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
+        audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
     end
@@ -116,7 +129,7 @@ function scene:hide( event )
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
+        audio.stop(1)
     end
 end
 

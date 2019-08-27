@@ -2,6 +2,11 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 composer.recycleOnSceneChange = true
 
+-- SFX
+local bgMusic
+local sfx_buttons
+local sfx_select
+
 -- UI Elements
 local background
 local planet
@@ -13,6 +18,7 @@ local buttonBack
 -- Event Functions
 local function nextPlanet(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_buttons)
         if (selectedPlanet == 3) then
             selectedPlanet = 1
         else
@@ -24,6 +30,7 @@ end
 
 local function previousPlanet(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_buttons)
         if (selectedPlanet == 1) then
             selectedPlanet = 3
         else
@@ -56,6 +63,13 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
+
+    -- Load Music
+    bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
+
+    -- Load SFX
+    sfx_buttons = audio.loadSound("assets/sounds/sfx/Beep.wav")
+    sfx_select = audio.loadSound("assets/sounds/sfx/Beep.wav")
 
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
@@ -100,7 +114,7 @@ function scene:show( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
+        audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
  
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
@@ -118,7 +132,7 @@ function scene:hide( event )
  
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
-        composer.removeScene("scenes.planets")
+        audio.stop(1)
  
     end
 end
