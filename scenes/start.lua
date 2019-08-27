@@ -70,7 +70,6 @@ function scene:create( event )
 
     -- Shake Listener
     Runtime:addEventListener( "accelerometer", changeLogo )
-    
 end
 
 -- show()
@@ -80,9 +79,8 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
- 
     elseif ( phase == "did" ) then
- 
+
     end
 end
 
@@ -92,16 +90,22 @@ function scene:hide( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-
-    elseif ( phase == "did" ) then
         audio.stop(1)
+
+        buttonStart:removeEventListener( "touch", start)
+        Runtime:removeEventListener( "accelerometer", changeLogo )
+
+        display.remove(background)
+        display.remove(logo)
+        display.remove(buttonStart)
+    elseif ( phase == "did" ) then
+
     end
 end
 
 -- destroy()
 function scene:destroy( event )
     local sceneGroup = self.view
-
 end
 
 -- -----------------------------------------------------------------------------------

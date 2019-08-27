@@ -49,7 +49,7 @@ end
 
 local function goBack(event)
     if ( event.phase == "ended" ) then
-        --TODO: goBack Action
+        composer.gotoScene("scenes.start")
     end
 end
 -- -----------------------------------------------------------------------------------
@@ -106,20 +106,16 @@ function scene:create( event )
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
     buttonSelect.x, buttonSelect.y = centerX, screenHeight - 50
     buttonSelect:addEventListener( "touch", selectPlanet)
-
 end
  
 -- show()
 function scene:show( event )
     local sceneGroup = self.view
     local phase = event.phase
- 
     if ( phase == "will" ) then
         audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
- 
     elseif ( phase == "did" ) then
-        -- Code here runs when the scene is entirely on screen
- 
+
     end
 end
  
@@ -127,23 +123,28 @@ end
 function scene:hide( event )
     local sceneGroup = self.view
     local phase = event.phase
- 
     if ( phase == "will" ) then
-        -- Code here runs when the scene is on screen (but is about to go off screen)
- 
-    elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
         audio.stop(1)
- 
+
+        buttonLeft:removeEventListener( "touch", previousPlanet)
+        buttonRight:removeEventListener( "touch", nextPlanet)
+        buttonBack:removeEventListener( "touch", goBack)
+        buttonSelect:removeEventListener( "touch", selectPlanet)
+        
+        display.remove(background)
+        display.remove(planet)
+        display.remove(buttonLeft)
+        display.remove(buttonRight)
+        display.remove(buttonSelect)
+        display.remove(buttonBack)
+    elseif ( phase == "did" ) then
+
     end
 end
  
 -- destroy()
 function scene:destroy( event )
- 
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
- 
 end
  
 -- -----------------------------------------------------------------------------------

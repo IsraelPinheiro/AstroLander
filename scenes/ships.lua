@@ -106,7 +106,6 @@ function scene:create( event )
     buttonLaunch.anchorX, buttonLaunch.anchorY = 0.5, 1
     buttonLaunch.x, buttonLaunch.y = centerX, screenHeight - 50
     buttonLaunch:addEventListener( "touch", launchShip)
-
 end
 
 -- show()
@@ -123,14 +122,26 @@ end
 
 -- hide()
 function scene:hide( event )
- 
     local sceneGroup = self.view
     local phase = event.phase
  
     if ( phase == "will" ) then
-        -- Code here runs when the scene is on screen (but is about to go off screen)
-    elseif ( phase == "did" ) then
         audio.stop(1)
+
+        buttonLeft:removeEventListener( "touch", previousShip)
+        buttonRight:removeEventListener( "touch", nextShip)
+        buttonBack:removeEventListener( "touch", goBack)
+        buttonLaunch:removeEventListener( "touch", launchShip)
+
+        display.remove(background)
+        display.remove(ship)
+        display.remove(buttonLeft)
+        display.remove(buttonRight)
+        display.remove(buttonLaunch)
+        display.remove(buttonBack)
+
+    elseif ( phase == "did" ) then
+        
     end
 end
 
