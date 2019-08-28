@@ -10,8 +10,16 @@ local sfx_pause
 -- UI Elements
 local background
 
+local map
+
+local player
+
 local fuelBar
 local fuelBarFill
+
+local altitude
+local vSpeed
+local hSpeed
 
 local buttonPause
 local buttonLeft
@@ -19,11 +27,30 @@ local buttonRight
 local buttonThrust
 
 -- Event Functions
-local function pause(event)
+
+local function rotateRight(event)
     if ( event.phase == "ended" ) then
-       
+       -- TODO:
     end
 end
+local function rotateLeft(event)
+    if ( event.phase == "ended" ) then
+       -- TODO:
+    end
+end
+local function thrust(event)
+    if ( event.phase == "ended" ) then
+       -- TODO:
+    end
+end
+
+local function pause(event)
+    if ( event.phase == "ended" ) then
+       -- TODO:
+    end
+end
+
+
 
 
 
@@ -46,7 +73,18 @@ function scene:create( event )
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
-    --FuelBar
+    --Map
+    -- TODO:
+    --Fuel Bar
+    -- TODO:
+    --Fuel Bar Fill
+    -- TODO:
+    -- Altitude Indicator
+    -- TODO:
+    -- Vertical Speed Indicator
+    -- TODO:
+    -- Horizontal Speed indicator
+    -- TODO:
 
     -- Pause Button
     buttonPause = display.newImage("assets/img/ui/pause.png")
@@ -54,6 +92,23 @@ function scene:create( event )
     buttonPause.x, buttonPause.y = 30, 30
     buttonPause:addEventListener( "touch", pause)
 
+    -- Arrow Right
+    buttonRight = display.newImage("assets/img/ui/right.png")
+    buttonRight.anchorX, buttonRight.anchorY = 1, 1
+    buttonRight.x, buttonRight.y = screenWidth-30, screenHeight-30
+    buttonRight:addEventListener( "touch", rotateRight)
+
+    -- Arrow Left
+    buttonLeft = display.newImage("assets/img/ui/left.png")
+    buttonLeft.anchorX, buttonLeft.anchorY = 1, 1 
+    buttonLeft.x, buttonLeft.y = screenWidth-buttonRight.width-25, screenHeight-30
+    buttonLeft:addEventListener( "touch", rotateLeft)
+
+    -- Thrust
+    buttonThrust = display.newImage("assets/img/ui/thrust.png")
+    buttonThrust.anchorX, buttonThrust.anchorY = 0, 1
+    buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
+    buttonThrust:addEventListener( "touch", thrust)
 end
 
 -- show()
