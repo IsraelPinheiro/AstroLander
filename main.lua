@@ -49,14 +49,14 @@ ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
             width = 138,
             height = 85
         },
-        {   -- Dragon
+        {   -- Crew Dragon
             x = 810,
             y = 0,
             width = 74,
             height = 85
         }
         ,
-        {   -- Soyuz
+        {   -- LK Lander
             x = 1244,
             y = 0,
             width = 35,
