@@ -51,7 +51,7 @@ function scene:create( event )
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
-    background.width, background.height = screenWidth*2, screenHeight*2
+    background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     -- Start Screen Logo
     logo = display.newSprite(logos, {start=1, count=3 })

@@ -78,7 +78,7 @@ function scene:create( event )
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
-    background.width, background.height = screenWidth*2, screenHeight*2
+    background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     -- Ship
     ship = display.newSprite(ships_full, {start=1, count=3 })
