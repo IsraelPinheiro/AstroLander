@@ -46,7 +46,7 @@ function scene:create( event )
     bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
 
     --Load SFX
-    sfx_select = audio.loadSound("assets/sounds/sfx/Beep.wav")
+    sfx_select = audio.loadSound("assets/sounds/sfx/select.wav")
     
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")

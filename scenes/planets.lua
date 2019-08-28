@@ -4,7 +4,8 @@ composer.recycleOnSceneChange = true
 
 -- SFX
 local bgMusic
-local sfx_buttons
+local sfx_change
+local sfx_back
 local sfx_select
 
 -- UI Elements
@@ -18,7 +19,7 @@ local buttonBack
 -- Event Functions
 local function nextPlanet(event)
     if ( event.phase == "ended" ) then
-        audio.play(sfx_buttons)
+        audio.play(sfx_change)
         if (selectedPlanet == 3) then
             selectedPlanet = 1
         else
@@ -30,7 +31,7 @@ end
 
 local function previousPlanet(event)
     if ( event.phase == "ended" ) then
-        audio.play(sfx_buttons)
+        audio.play(sfx_change)
         if (selectedPlanet == 1) then
             selectedPlanet = 3
         else
@@ -49,6 +50,7 @@ end
 
 local function goBack(event)
     if ( event.phase == "ended" ) then
+        audio.play(sfx_back)
         composer.gotoScene("scenes.start")
     end
 end
@@ -69,8 +71,9 @@ function scene:create( event )
     bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
 
     -- Load SFX
-    sfx_buttons = audio.loadSound("assets/sounds/sfx/Beep.wav")
-    sfx_select = audio.loadSound("assets/sounds/sfx/Beep.wav")
+    sfx_change = audio.loadSound("assets/sounds/sfx/change.wav")
+    sfx_back = audio.loadSound("assets/sounds/sfx/back.wav")
+    sfx_select = audio.loadSound("assets/sounds/sfx/select.wav")
 
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
