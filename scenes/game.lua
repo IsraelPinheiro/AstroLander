@@ -14,8 +14,10 @@ local map
 
 local player
 
+local fuel = 1000
 local fuelBar
 local fuelBarFill
+local fuelIndicator
 
 local altitude
 local vSpeed
@@ -76,9 +78,17 @@ function scene:create( event )
     --Map
     -- TODO:
     --Fuel Bar
-    -- TODO:
+    fuelBar = display.newImage("assets/img/ui/fuelBar.png")
+    fuelBar.anchorX, fuelBar.anchorY = 0,0
     --Fuel Bar Fill
-    -- TODO:
+    fuelBarFill = display.newImage("assets/img/ui/fuelBarFill.png")
+    fuelBarFill.anchorX, fuelBarFill.anchorY = 0,0
+    fuelBarFill.width = screenWidth*0.01
+    --Fuel Indicator
+    fuelIndicator = display.newText( fuel, screenWidth-10, 25, "assets/fonts/ConsoleClassic.ttf", 50 )
+    fuelIndicator.anchorX, fuelIndicator.anchorY = 1,0.5
+    fuelIndicator:setFillColor(245/255, 134/255, 52/255)
+
     -- Altitude Indicator
     -- TODO:
     -- Vertical Speed Indicator
@@ -89,7 +99,7 @@ function scene:create( event )
     -- Pause Button
     buttonPause = display.newImage("assets/img/ui/pause.png")
     buttonPause.anchorX, buttonPause.anchorY = 0, 0
-    buttonPause.x, buttonPause.y = 30, 30
+    buttonPause.x, buttonPause.y = 30, 80
     buttonPause:addEventListener( "touch", pause)
 
     -- Arrow Right
