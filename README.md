@@ -26,6 +26,8 @@ On a successful landing, your score will be determined by your landing spot and 
 ![Gameplay](http://drive.google.com/uc?export=view&id=1lBe-4j--oCCicnXJWOhcelvGnvQWd8Em)
 ### Game Over
 ![Game Over](http://drive.google.com/uc?export=view&id=1d50W0IsFHymLj8AF1Yoa0fzIHt6C4OFR)
+### Navegation Diagram
+![Navegation Diagram](http://drive.google.com/uc?export=view&id=1q241YvtiWU5UO77ps3ADvDII4EtUsIkB)
 
 **Game Director:** Israel Pinheiro.  
 **Producer:** Israel Pinheiro.  
