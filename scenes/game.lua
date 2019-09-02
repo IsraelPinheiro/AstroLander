@@ -51,11 +51,9 @@ local function rotateLeft(event)
 end
 local function thrust(event)
     if ( event.phase == "began" ) then
-        print("Started Thrusting")
         isThrusting = true
      end
     if ( event.phase == "ended" ) then
-        print("Ended Thrusting")
         isThrusting = false
     end
 end
