@@ -12,6 +12,11 @@ selectedPlanet = 1
 selectedShip = 1
 bestScore = 0
 
+-- Game Settings
+-- Fuel Consumption Rate
+FCR = 0.50
+startingFuel = 1000
+
 -- Logos
 logos = graphics.newImageSheet("assets/img/logos.png", {
     width = 2160,
@@ -68,4 +73,4 @@ ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
 ships_name = { "Apollo Lander","Crew Dragon","LK Lander" }
 
 -- Go To Star Scene
-composer.gotoScene("scenes.start", { params={} })
+composer.gotoScene("scenes.game", { params={} })
