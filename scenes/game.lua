@@ -4,6 +4,9 @@ composer.recycleOnSceneChange = true
 -- Activate Multitouch
 system.activate( "multitouch" )
 
+-- Load Music
+bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
+
 -- SFX
 local gameMusic
 local sfx_thrust
@@ -171,7 +174,7 @@ function scene:show( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-
+        audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
     elseif ( phase == "did" ) then
 
     end
@@ -183,7 +186,7 @@ function scene:hide( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-
+        audio.stop(1)
     elseif ( phase == "did" ) then
 
     end
