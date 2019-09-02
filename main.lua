@@ -73,4 +73,4 @@ ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
 ships_name = { "Apollo Lander","Crew Dragon","LK Lander" }
 
 -- Go To Star Scene
-composer.gotoScene("scenes.game", { params={} })
+composer.gotoScene("scenes.start", { params={} })
