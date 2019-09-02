@@ -1,5 +1,5 @@
 # Astro Lander
-Astro Lander is a Lunar Lander style game, made using Corona SDK, where you can select a space ship and try to land on different astronomical bodies. Here, gravity is your only enemy.
+Astro Lander is a Lunar Lander style game, made using Corona SDK, where you can select a space lander and try to land on different astronomical bodies. Here, gravity is your only enemy.
 The game is aimed at everyone that likes space and it's misteries
 
 ## The Plot
