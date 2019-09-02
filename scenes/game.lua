@@ -120,7 +120,7 @@ function scene:create( event )
     fuelBar = display.newImage("assets/img/ui/fuelBar.png")
     fuelBar.anchorX, fuelBar.anchorY = 0,0
     --Fuel Bar Fill
-    fuelBarFill = display.newImage("assets/img/ui/FuelBarFill.png")
+    fuelBarFill = display.newImage("assets/img/ui/fuelBarFill.png")
     fuelBarFill.anchorX, fuelBarFill.anchorY = 0,0
     fuelBarFill.width = (screenWidth/startingFuel)*fuel
     --Fuel Indicator
