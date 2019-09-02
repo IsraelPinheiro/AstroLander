@@ -1,6 +1,8 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 composer.recycleOnSceneChange = true
+-- Activate Multitouch
+system.activate( "multitouch" )
 
 -- SFX
 local gameMusic
@@ -14,19 +16,26 @@ local map
 
 local player
 
-local fuel = 1000
+local fuel = startingFuel
 local fuelBar
 local fuelBarFill
 local fuelIndicator
 
-local altitude
-local vSpeed
-local hSpeed
+local altitude = 0
+local altitudeIndicator
+local vSpeed = 0
+local vSpeedIndicator
+local hSpeed = 0
+local hSpeedIndicator
 
 local buttonPause
 local buttonLeft
 local buttonRight
 local buttonThrust
+
+-- Event Flags
+local isPaused = false
+local isThrusting = false
 
 -- Event Functions
 
@@ -41,21 +50,53 @@ local function rotateLeft(event)
     end
 end
 local function thrust(event)
+    if ( event.phase == "began" ) then
+        print("Started Thrusting")
+        isThrusting = true
+     end
     if ( event.phase == "ended" ) then
-       -- TODO:
+        print("Ended Thrusting")
+        isThrusting = false
     end
 end
 
 local function pause(event)
     if ( event.phase == "ended" ) then
-       -- TODO:
+       isPaused = true
     end
 end
 
+-- Game Loop
 
+local function updateVSpeed()
+    
+end
+local function updateHSpeed()
+    
+end
+local function updateAltitude()
+    
+end
 
+local function updateFuel()
+    if isThrusting and fuel>0 then
+        fuel = fuel-FCR
+        fuelIndicator.text = math.floor(fuel)
+        fuelBarFill.width = (screenWidth/startingFuel)*fuel
+    end
+end
 
-
+local function gameLoop (event)
+    if isPaused then
+        return false
+    else
+        updateFuel()
+        updateAltitude()
+        updateVSpeed()
+        updateHSpeed()
+    end
+end
+    
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -81,20 +122,23 @@ function scene:create( event )
     fuelBar = display.newImage("assets/img/ui/fuelBar.png")
     fuelBar.anchorX, fuelBar.anchorY = 0,0
     --Fuel Bar Fill
-    fuelBarFill = display.newImage("assets/img/ui/fuelBarFill.png")
+    fuelBarFill = display.newImage("assets/img/ui/FuelBarFill.png")
     fuelBarFill.anchorX, fuelBarFill.anchorY = 0,0
-    fuelBarFill.width = screenWidth*0.01
+    fuelBarFill.width = (screenWidth/startingFuel)*fuel
     --Fuel Indicator
     fuelIndicator = display.newText( fuel, screenWidth-10, 25, "assets/fonts/ConsoleClassic.ttf", 50 )
     fuelIndicator.anchorX, fuelIndicator.anchorY = 1,0.5
     fuelIndicator:setFillColor(245/255, 134/255, 52/255)
 
     -- Altitude Indicator
-    -- TODO:
+    altitudeIndicator = display.newText("Altitude: "..altitude, screenWidth-10, 70, "assets/fonts/ConsoleClassic.ttf", 50 )
+    altitudeIndicator.anchorX, altitudeIndicator.anchorY = 1,0.5
     -- Vertical Speed Indicator
-    -- TODO:
+    vSpeedIndicator = display.newText("Vertical Speed: "..vSpeed, screenWidth-10, 110, "assets/fonts/ConsoleClassic.ttf", 50 )
+    vSpeedIndicator.anchorX, vSpeedIndicator.anchorY = 1,0.5
     -- Horizontal Speed indicator
-    -- TODO:
+    hSpeedIndicator = display.newText("Horizontal Speed: "..hSpeed, screenWidth-10, 150, "assets/fonts/ConsoleClassic.ttf", 50 )
+    hSpeedIndicator.anchorX, hSpeedIndicator.anchorY = 1,0.5
 
     -- Pause Button
     buttonPause = display.newImage("assets/img/ui/pause.png")
@@ -119,6 +163,8 @@ function scene:create( event )
     buttonThrust.anchorX, buttonThrust.anchorY = 0, 1
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
+
+    Runtime:addEventListener( "enterFrame", gameLoop )
 end
 
 -- show()
