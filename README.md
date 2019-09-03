@@ -10,9 +10,9 @@ Just try to land safely, if that's not challenging enough for you, try landing o
 
 ## Gameplay
 As the game starts, the player can user the on-screen touch buttons to steer the lander and use its thruster (Which will consume fuel).
-While the lander descents, the player has to manage its velocity, inclination and fuel consumption.
+While the lander descents, the player has to manage its velocity, inclination and fuel consumption.  
 The player will make a successful landing if, when the lander touches the ground, it's sufficiently slow and leveled, otherwise, it will
-explode, causing you a fiery death.
+explode, causing you a fiery death.  
 On a successful landing, your score will be determined by your landing spot and if it's a bonus zone.
 
 ## Game Screens (Not final)
