@@ -1,6 +1,12 @@
 local composer = require( "composer" )
+local physics = require( "physics" )
+
 local scene = composer.newScene()
 composer.recycleOnSceneChange = true
+
+physics.start()
+physics.setGravity( 0, planets_G[selectedPlanet] )
+
 -- Activate Multitouch
 system.activate( "multitouch" )
 
