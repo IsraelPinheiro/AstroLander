@@ -70,7 +70,13 @@ local function thrust(event)
 end
 local function pause(event)
     if ( event.phase == "ended" ) then
-       isPaused = true
+        if isPaused then
+            isPaused = false
+            physics.start()
+        else
+            isPaused = true
+            physics.stop()
+        end
     end
 end
 
