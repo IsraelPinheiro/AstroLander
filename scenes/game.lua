@@ -16,7 +16,6 @@ local sfx_pause
 local background
 
 local map
-
 local player
 
 local fuel = startingFuel
@@ -39,9 +38,10 @@ local buttonThrust
 -- Event Flags
 local isPaused = false
 local isThrusting = false
+local isRotatingLeft = false
+local isRotatingRight = false
 
 -- Event Functions
-
 local function rotateRight(event)
     if ( event.phase == "ended" ) then
        -- TODO:
@@ -54,13 +54,14 @@ local function rotateLeft(event)
 end
 local function thrust(event)
     if ( event.phase == "began" ) then
+        display.getCurrentStage():setFocus(event.target)
         isThrusting = true
      end
     if ( event.phase == "ended" ) then
+        display.getCurrentStage():setFocus(nil)
         isThrusting = false
     end
 end
-
 local function pause(event)
     if ( event.phase == "ended" ) then
        isPaused = true
@@ -68,17 +69,15 @@ local function pause(event)
 end
 
 -- Game Loop
-
 local function updateVSpeed()
-    
+
 end
 local function updateHSpeed()
-    
+
 end
 local function updateAltitude()
-    
-end
 
+end
 local function updateFuel()
     if isThrusting and fuel>0 then
         fuel = fuel-FCR
@@ -97,7 +96,7 @@ local function gameLoop (event)
         updateHSpeed()
     end
 end
-    
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -195,7 +194,6 @@ end
 -- destroy()
 function scene:destroy( event )
     local sceneGroup = self.view
-
 end
 
 -- -----------------------------------------------------------------------------------
@@ -206,5 +204,5 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
- 
+
 return scene
