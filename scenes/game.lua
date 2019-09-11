@@ -80,12 +80,20 @@ local function pause(event)
     end
 end
 
--- Game Loop
-local function updateVSpeed()
-
+local function onShipCollision( self, event )
+    if ( event.phase == "began" ) then
+        print( self.myName .. ": collision began with " .. event.other.myName )
+ 
+    elseif ( event.phase == "ended" ) then
+        print( self.myName .. ": collision ended with " .. event.other.myName )
+    end
 end
-local function updateHSpeed()
 
+-- Game Loop
+local function updateSpeed()
+    vX, vY = ship:getLinearVelocity()
+    vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", vY)
+    hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", vX)
 end
 local function updateAltitude()
 
@@ -104,8 +112,7 @@ local function gameLoop (event)
     else
         updateFuel()
         updateAltitude()
-        updateVSpeed()
-        updateHSpeed()
+        updateSpeed()
     end
 end
 
@@ -175,6 +182,14 @@ function scene:create( event )
     buttonThrust.anchorX, buttonThrust.anchorY = 0, 1
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
+
+    -- Player Ship
+    ship = display.newSprite(ships_mini, {start=1, count=3 })
+    ship:setFrame(selectedShip)
+    ship.x, ship.y = centerX, 50
+    physics.addBody( ship, "dynamic" )
+    ship.collision = onShipCollision
+    ship:addEventListener( "collision" )
 
     Runtime:addEventListener( "enterFrame", gameLoop )
 end
