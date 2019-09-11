@@ -71,11 +71,11 @@ end
 local function pause(event)
     if ( event.phase == "ended" ) then
         if isPaused then
-            isPaused = false
             physics.start()
+            isPaused = false
         else
+            physics.pause()
             isPaused = true
-            physics.stop()
         end
     end
 end
