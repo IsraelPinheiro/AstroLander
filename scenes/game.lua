@@ -22,7 +22,7 @@ local sfx_pause
 local background
 
 local map
-local player
+local ship
 
 local fuel = startingFuel
 local fuelBar
@@ -135,6 +135,14 @@ function scene:create( event )
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
+    -- Player Ship
+    ship = display.newSprite(ships_mini, {start=1, count=3 })
+    ship:setFrame(selectedShip)
+    ship.x, ship.y = centerX, 50
+    physics.addBody( ship, "dynamic" )
+    ship.collision = onShipCollision
+    ship:addEventListener( "collision" )
+
     --Map
     -- TODO:
     --Fuel Bar
@@ -183,13 +191,7 @@ function scene:create( event )
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
 
-    -- Player Ship
-    ship = display.newSprite(ships_mini, {start=1, count=3 })
-    ship:setFrame(selectedShip)
-    ship.x, ship.y = centerX, 50
-    physics.addBody( ship, "dynamic" )
-    ship.collision = onShipCollision
-    ship:addEventListener( "collision" )
+    
 
     Runtime:addEventListener( "enterFrame", gameLoop )
 end
