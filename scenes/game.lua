@@ -123,10 +123,8 @@ end
 -- create()
 function scene:create( event ) 
     local sceneGroup = self.view
-
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
-
     -- Load SFX
     -- TODO: Load SFX
 
@@ -134,6 +132,11 @@ function scene:create( event )
     background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
+
+    --Map
+    map = display.newImage("assets/img/map.png")
+    map.anchorX, map.anchorY = 0.5, 0
+    map.x, map.y = centerX, screenWidths
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
@@ -143,8 +146,6 @@ function scene:create( event )
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
 
-    --Map
-    -- TODO:
     --Fuel Bar
     fuelBar = display.newImage("assets/img/ui/fuelBar.png")
     fuelBar.anchorX, fuelBar.anchorY = 0,0
