@@ -22,6 +22,7 @@ local sfx_pause
 local background
 
 local map
+local map_outline
 local ship
 
 local fuel = startingFuel
@@ -135,8 +136,10 @@ function scene:create( event )
 
     --Map
     map = display.newImage("assets/img/map.png")
-    map.anchorX, map.anchorY = 0.5, 0
-    map.x, map.y = centerX, screenWidths
+    map.anchorX, map.anchorY = 0.5,1
+    map.x, map.y = centerX, screenHeight
+    map_outline = graphics.newOutline( 2,"assets/img/map.png")
+    physics.addBody( map, "static", { outline=map_outline } )
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
