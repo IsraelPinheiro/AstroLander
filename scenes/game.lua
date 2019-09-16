@@ -50,20 +50,30 @@ local isRotatingRight = false
 
 -- Event Functions
 local function rotateRight(event)
+    if ( event.phase == "began" ) then
+        display.getCurrentStage():setFocus(event.target)
+        isRotatingRight = true
+    end
     if ( event.phase == "ended" ) then
-       -- TODO:
+        display.getCurrentStage():setFocus(nil)
+        isRotatingRight = false
     end
 end
 local function rotateLeft(event)
+    if ( event.phase == "began" ) then
+        display.getCurrentStage():setFocus(event.target)
+        isRotatingLeft = true
+    end
     if ( event.phase == "ended" ) then
-       -- TODO:
+        display.getCurrentStage():setFocus(nil)
+        isRotatingLeft = false
     end
 end
 local function thrust(event)
     if ( event.phase == "began" ) then
         display.getCurrentStage():setFocus(event.target)
         isThrusting = true
-     end
+    end
     if ( event.phase == "ended" ) then
         display.getCurrentStage():setFocus(nil)
         isThrusting = false
@@ -107,6 +117,27 @@ local function updateFuel()
     end
 end
 
+local function updateRotation()
+    if isRotatingRight then
+        ship.rotation = ship.rotation + 1
+    elseif isRotatingLeft then
+        ship.rotation = ship.rotation - 1
+    end
+end
+
+-- Calc Ship Thrust Vector
+local function angle2VecDeg (angle)
+    angle = angle*math.pi/180
+    return math.cos(angle), math.sin(angle)
+end
+
+local function updateThrust()
+    if isThrusting and fuel>0 then
+        local vecX, vecY = angle2VecDeg( ship.rotation-90 ) 
+        ship:applyForce ( vecX, vecY, ship.x, ship.y )
+    end
+end
+
 local function gameLoop (event)
     if isPaused then
         return false
@@ -114,6 +145,8 @@ local function gameLoop (event)
         updateFuel()
         updateAltitude()
         updateSpeed()
+        updateRotation()
+        updateThrust()
     end
 end
 
