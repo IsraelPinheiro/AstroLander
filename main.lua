@@ -14,7 +14,7 @@ bestScore = 0
 
 -- Game Settings
 -- Fuel Consumption Rate
-FCR = 0.50
+FCR = 1.00
 startingFuel = 1000
 
 -- Logos
