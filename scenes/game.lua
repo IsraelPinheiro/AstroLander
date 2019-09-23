@@ -108,7 +108,7 @@ local function onShipCollision( self, event )
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
         distance = math.floor(distance)
-        if(vX<15) then
+        if(vY<20) then
             print("You Landed - Final Score "..absoluteValue(distance))
             --composer.gotoScene("scenes.start")
         else
