@@ -114,8 +114,8 @@ end
 -- Game Loop
 local function updateSpeed()
     vX, vY = ship:getLinearVelocity()
-    vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", vY)
-    hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", vX)
+    vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", absoluteValue(vY))
+    hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", absoluteValue(vX))
 end
 local function updateAltitude()
 
@@ -237,9 +237,7 @@ function scene:create( event )
     buttonThrust.anchorX, buttonThrust.anchorY = 0, 1
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
-
     
-
     Runtime:addEventListener( "enterFrame", gameLoop )
 end
 
