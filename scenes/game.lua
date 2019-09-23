@@ -105,7 +105,8 @@ end
 local function onShipCollision( self, event )
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
-        print(absoluteValue(distance))
+        distance = math.floor(distance)
+        print("Game Over - "..absoluteValue(distance))
     elseif ( event.phase == "ended" ) then
         
     end
@@ -237,8 +238,6 @@ function scene:create( event )
     buttonThrust.anchorX, buttonThrust.anchorY = 0, 1
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
-
-    
 
     Runtime:addEventListener( "enterFrame", gameLoop )
 end
