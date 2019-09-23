@@ -114,8 +114,8 @@ end
 -- Game Loop
 local function updateSpeed()
     vX, vY = ship:getLinearVelocity()
-    vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", vY)
-    hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", vX)
+    vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", absoluteValue(vY))
+    hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", absoluteValue(vX))
 end
 local function updateAltitude()
 
