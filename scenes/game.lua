@@ -22,7 +22,7 @@ local sfx_pause
 local background
 
 local map
-local map_outline
+-- local map_outline
 local ship
 
 local fuel = startingFuel
@@ -47,6 +47,16 @@ local isPaused = false
 local isThrusting = false
 local isRotatingLeft = false
 local isRotatingRight = false
+
+--Auxiliar Functions
+
+local function absoluteValue(number)
+    if number > 0 then
+        return number
+    else
+        return number*-1
+    end
+end
 
 -- Event Functions
 local function rotateRight(event)
@@ -91,12 +101,13 @@ local function pause(event)
     end
 end
 
+-- Collision
 local function onShipCollision( self, event )
     if ( event.phase == "began" ) then
-        print( self.myName .. ": collision began with " .. event.other.myName )
- 
+        distance = ship.x-centerX
+        print(absoluteValue(distance))
     elseif ( event.phase == "ended" ) then
-        print( self.myName .. ": collision ended with " .. event.other.myName )
+        
     end
 end
 
@@ -168,17 +179,16 @@ function scene:create( event )
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     --Map
-    map = display.newImage("assets/img/map.png")
+    map = display.newRect(centerX, centerY, screenWidth*6, 50)
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
-    map_outline = graphics.newOutline( 2,"assets/img/map.png")
-    physics.addBody( map, "static", { outline=map_outline } )
+    physics.addBody( map, "static",{bounce=0})
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
     ship:setFrame(selectedShip)
     ship.x, ship.y = centerX, 50
-    physics.addBody( ship, "dynamic" )
+    physics.addBody( ship, "dynamic",{bounce=0})
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
 
