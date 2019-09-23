@@ -51,7 +51,7 @@ local isRotatingRight = false
 --Auxiliar Functions
 
 local function absoluteValue(number)
-    if number > 0 then
+    if number >= 0 then
         return number
     else
         return number*-1
@@ -103,12 +103,18 @@ end
 
 -- Collision
 local function onShipCollision( self, event )
+    vX, vY = ship:getLinearVelocity()
+    rotation = ship.rotation
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
         distance = math.floor(distance)
-        print("Game Over - "..absoluteValue(distance))
-    elseif ( event.phase == "ended" ) then
-        
+        if(vX<15) then
+            print("You Landed - Final Score "..absoluteValue(distance))
+            --composer.gotoScene("scenes.start")
+        else
+            print("You Exploded - Game Over ")
+            --composer.gotoScene("scenes.start")
+        end
     end
 end
 
