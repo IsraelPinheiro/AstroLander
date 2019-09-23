@@ -182,13 +182,13 @@ function scene:create( event )
     map = display.newRect(centerX, centerY, screenWidth*6, 50)
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
-    physics.addBody( map, "static",{bounce=0})
+    physics.addBody( map, "static",{bounce=0, friction=1})
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
     ship:setFrame(selectedShip)
     ship.x, ship.y = centerX, 50
-    physics.addBody( ship, "dynamic",{bounce=0})
+    physics.addBody( ship, "dynamic",{bounce=0, friction=1})
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
 
