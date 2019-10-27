@@ -11,18 +11,20 @@ physics.setGravity( 0, planets_G[selectedPlanet] )
 system.activate( "multitouch" )
 
 -- Load Music
-bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
+local bgMusic
 
 -- SFX
-local gameMusic
-local sfx_thrust
-local sfx_pause
+local sfx_select
+local sfx_thruster
+local sfx_explode
 
 -- UI Elements
 local background
 
 local map
--- local map_outline
+local mapFile
+local mapOutline
+
 local ship
 
 local fuel = startingFuel
@@ -82,10 +84,12 @@ end
 local function thrust(event)
     if ( event.phase == "began" ) then
         display.getCurrentStage():setFocus(event.target)
+        audio.play(sfx_thruster, {channel = 2, loops = -1})
         isThrusting = true
     end
     if ( event.phase == "ended" ) then
         display.getCurrentStage():setFocus(nil)
+        audio.stop(2)
         isThrusting = false
     end
 end
@@ -114,6 +118,7 @@ local function onShipCollision( self, event )
             print("You Landed - Final Score "..score)
             --composer.gotoScene("scenes.start")
         else
+            audio.play(sfx_explode)
             print("You Exploded - Game Over ")
             --composer.gotoScene("scenes.start")
         end
@@ -177,10 +182,14 @@ end
 -- create()
 function scene:create( event ) 
     local sceneGroup = self.view
+    -- Reserve 3 Audio Channels
+    audio.reserveChannels(3)
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
     -- Load SFX
-    -- TODO: Load SFX
+    sfx_select = audio.loadSound("assets/sounds/sfx/select.wav")
+    sfx_thruster = audio.loadSound("assets/sounds/sfx/rocketThruster.mp3")
+    sfx_explode = audio.loadSound("assets/sounds/sfx/explode.mp3")
 
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
@@ -188,12 +197,11 @@ function scene:create( event )
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     --Map
-    local mapFile = "assets/img/map.png"
-    local mapOutline = graphics.newOutline( 2, mapFile )
-    local map = display.newImage( mapFile )
+    mapFile = "assets/img/map.png"
+    mapOutline = graphics.newOutline( 2, mapFile )
+    map = display.newImage( mapFile )
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
-
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
 
     -- physics.addBody( map, "static",{bounce=0, friction=1})
