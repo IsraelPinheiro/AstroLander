@@ -107,9 +107,11 @@ local function onShipCollision( self, event )
     rotation = ship.rotation
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
-        distance = math.floor(distance)
-        if(vY<20) then
-            print("You Landed - Final Score "..absoluteValue(distance))
+        distance = absoluteValue(math.floor(distance))
+        if(vY<maxLandingSpeed and absoluteValue(rotation)<maxLandingAngle) then
+            -- Score Calc
+            score =math.floor(((distance+1)*(fuel/10))/(vY/10))
+            print("You Landed - Final Score "..score)
             --composer.gotoScene("scenes.start")
         else
             print("You Exploded - Game Over ")
@@ -186,10 +188,15 @@ function scene:create( event )
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     --Map
-    map = display.newRect(centerX, centerY, screenWidth*6, 50)
+    local mapFile = "assets/img/map.png"
+    local mapOutline = graphics.newOutline( 2, mapFile )
+    local map = display.newImage( mapFile )
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
-    physics.addBody( map, "static",{bounce=0, friction=1})
+
+    physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
+
+    -- physics.addBody( map, "static",{bounce=0, friction=1})
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
