@@ -17,6 +17,10 @@ bestScore = 0
 FCR = 1.00
 startingFuel = 1000
 
+--Landing 
+maxLandingSpeed = 40
+maxLandingAngle = 15
+
 -- Logos
 logos = graphics.newImageSheet("assets/img/logos.png", {
     width = 2160,
@@ -38,6 +42,7 @@ planets = graphics.newImageSheet("assets/img/planets.png", {
 })
 
 -- Ships
+ships_name = { "Apollo Lander","Crew Dragon","LK Lander" }
 ships_full = graphics.newImageSheet("assets/img/ships.png", {
     width = 1560,
     height = 830,
@@ -45,7 +50,6 @@ ships_full = graphics.newImageSheet("assets/img/ships.png", {
     sheetContentWidth = 4680,
     sheetContentHeight = 830
 })
-
 ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
     frames ={
         {   -- Apollo Lander
@@ -69,8 +73,6 @@ ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
         }
     }
 })
-
-ships_name = { "Apollo Lander","Crew Dragon","LK Lander" }
 
 -- Go To Star Scene
 composer.gotoScene("scenes.start", { params={} })
