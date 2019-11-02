@@ -197,14 +197,12 @@ function scene:create( event )
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
 
     --Map
-    mapFile = "assets/img/map.png"
+    mapFile = planets_map[selectedPlanet]
     mapOutline = graphics.newOutline( 2, mapFile )
     map = display.newImage( mapFile )
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
-
-    -- physics.addBody( map, "static",{bounce=0, friction=1})
 
     -- Player Ship
     ship = display.newSprite(ships_mini, {start=1, count=3 })
@@ -281,7 +279,21 @@ function scene:hide( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-        audio.stop(1)
+        audio.stop()
+        physics.stop()
+        -- Remove Event Listeners
+        buttonPause:removeEventListener( "touch", pause)
+        buttonRight:removeEventListener( "touch", rotateRight)
+        buttonLeft:removeEventListener( "touch", rotateLeft)
+        buttonThrust:removeEventListener( "touch", thrust)
+        Runtime:removeEventListener( "enterFrame", gameLoop )
+        -- Remove Display Elements
+        display.remove(background)
+        display.remove(planet)
+        display.remove(buttonLeft)
+        display.remove(buttonRight)
+        display.remove(buttonSelect)
+        display.remove(buttonBack)
     elseif ( phase == "did" ) then
 
     end
