@@ -19,6 +19,7 @@ local sfx_thruster
 local sfx_explode
 
 -- UI Elements
+local UIDefaultFont = "assets/fonts/ConsoleClassic.ttf"
 local background
 
 local map
@@ -220,18 +221,18 @@ function scene:create( event )
     fuelBarFill.anchorX, fuelBarFill.anchorY = 0,0
     fuelBarFill.width = (screenWidth/startingFuel)*fuel
     --Fuel Indicator
-    fuelIndicator = display.newText( fuel, screenWidth-10, 25, "assets/fonts/ConsoleClassic.ttf", 50 )
+    fuelIndicator = display.newText( fuel, screenWidth-10, 25, UIDefaultFont, 50 )
     fuelIndicator.anchorX, fuelIndicator.anchorY = 1,0.5
     fuelIndicator:setFillColor(245/255, 134/255, 52/255)
 
     -- Altitude Indicator
-    altitudeIndicator = display.newText("Altitude: "..altitude, screenWidth-10, 70, "assets/fonts/ConsoleClassic.ttf", 50 )
+    altitudeIndicator = display.newText("Altitude: "..altitude, screenWidth-10, 70, UIDefaultFont, 50 )
     altitudeIndicator.anchorX, altitudeIndicator.anchorY = 1,0.5
     -- Vertical Speed Indicator
-    vSpeedIndicator = display.newText("Vertical Speed: "..vSpeed, screenWidth-10, 110, "assets/fonts/ConsoleClassic.ttf", 50 )
+    vSpeedIndicator = display.newText("Vertical Speed: "..vSpeed, screenWidth-10, 110, UIDefaultFont, 50 )
     vSpeedIndicator.anchorX, vSpeedIndicator.anchorY = 1,0.5
     -- Horizontal Speed indicator
-    hSpeedIndicator = display.newText("Horizontal Speed: "..hSpeed, screenWidth-10, 150, "assets/fonts/ConsoleClassic.ttf", 50 )
+    hSpeedIndicator = display.newText("Horizontal Speed: "..hSpeed, screenWidth-10, 150, UIDefaultFont, 50 )
     hSpeedIndicator.anchorX, hSpeedIndicator.anchorY = 1,0.5
 
     -- Pause Button
@@ -258,6 +259,7 @@ function scene:create( event )
     buttonThrust.x, buttonThrust.y = 30, screenHeight - 30
     buttonThrust:addEventListener( "touch", thrust)
 
+    -- Game Loop Listener
     Runtime:addEventListener( "enterFrame", gameLoop )
 end
 
