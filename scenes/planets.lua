@@ -127,7 +127,7 @@ function scene:hide( event )
     local sceneGroup = self.view
     local phase = event.phase
     if ( phase == "will" ) then
-        audio.stop()
+        audio.stop(1)
         -- Remove Event Listeners
         buttonLeft:removeEventListener( "touch", previousPlanet)
         buttonRight:removeEventListener( "touch", nextPlanet)

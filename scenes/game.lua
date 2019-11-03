@@ -72,6 +72,7 @@ local function rotateRight(event)
         isRotatingRight = false
     end
 end
+
 local function rotateLeft(event)
     if ( event.phase == "began" ) then
         display.getCurrentStage():setFocus(event.target)
@@ -82,6 +83,7 @@ local function rotateLeft(event)
         isRotatingLeft = false
     end
 end
+
 local function thrust(event)
     if ( event.phase == "began" ) then
         display.getCurrentStage():setFocus(event.target)
@@ -94,6 +96,7 @@ local function thrust(event)
         isThrusting = false
     end
 end
+
 local function pause(event)
     if ( event.phase == "ended" ) then
         if isPaused then

@@ -44,7 +44,6 @@ function scene:create( event )
 
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
-
     --Load SFX
     sfx_select = audio.loadSound("assets/sounds/sfx/select.wav")
     
@@ -91,10 +90,10 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         audio.stop(1)
-
+        -- Remove Event Listeners
         buttonStart:removeEventListener( "touch", start)
         Runtime:removeEventListener( "accelerometer", changeLogo )
-
+        -- Remove Display Elements
         display.remove(background)
         display.remove(logo)
         display.remove(buttonStart)

@@ -44,7 +44,7 @@ end
 local function launchShip(event)
     if ( event.phase == "ended" ) then
         audio.play(sfx_select)
-        composer.gotoScene("scenes.game")
+        composer.gotoScene("scenes.game", { params={} })
     end
 end
 
@@ -129,7 +129,7 @@ function scene:hide( event )
     local phase = event.phase
  
     if ( phase == "will" ) then
-        audio.stop()
+        audio.stop(1)
         -- Remove Event Listeners
         buttonLeft:removeEventListener( "touch", previousShip)
         buttonRight:removeEventListener( "touch", nextShip)
