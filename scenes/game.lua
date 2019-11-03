@@ -27,6 +27,8 @@ local mapFile
 local mapOutline
 
 local ship
+local shipFile
+local shipOutline
 
 local fuel = startingFuel
 local fuelBar
@@ -109,7 +111,7 @@ local function pause(event)
     end
 end
 
--- Collision
+-- Collision / Game Over
 local function onShipCollision( self, event )
     vX, vY = ship:getLinearVelocity()
     rotation = ship.rotation
@@ -209,10 +211,10 @@ function scene:create( event )
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
 
     -- Player Ship
-    ship = display.newSprite(ships_mini, {start=1, count=3 })
-    ship:setFrame(selectedShip)
+    shipOutline = graphics.newOutline( 2, "assets/img/ships/"..ships_body[selectedShip] )
+    ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
     ship.x, ship.y = centerX, 50
-    physics.addBody( ship, "dynamic",{bounce=0, friction=1})
+    physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
 

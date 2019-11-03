@@ -51,29 +51,8 @@ ships_full = graphics.newImageSheet("assets/img/ships.png", {
     sheetContentWidth = 4680,
     sheetContentHeight = 830
 })
-ships_mini = graphics.newImageSheet("assets/img/ships_mini.png", {
-    frames ={
-        {   -- Apollo Lander
-            x = 0,
-            y = 0,
-            width = 138,
-            height = 85
-        },
-        {   -- Crew Dragon
-            x = 810,
-            y = 0,
-            width = 74,
-            height = 85
-        }
-        ,
-        {   -- LK Lander
-            x = 1244,
-            y = 0,
-            width = 35,
-            height = 85
-        }
-    }
-})
+ships_body = {"apolo.ship.body.png","dragon.ship.body.png","lk.ship.body.png"}
+ships_mini = {"apolo.ship.png","dragon.ship.png","lk.ship.png"}
 
 -- Go To Star Scene
 composer.gotoScene("scenes.start", { params={} })
