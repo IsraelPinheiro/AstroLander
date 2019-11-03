@@ -32,7 +32,7 @@ logos = graphics.newImageSheet("assets/img/logos.png", {
 
 -- Planets
 planets_name = { "Moon","Mars","Neptune" }
-planets_map = { "assets/img/maps/moon.map.png","assets/img/maps/mars.map.png","assets/img/maps/neptune.map.png" }
+planets_map = { "moon.map.png","mars.map.png","neptune.map.png" }
 planets_G = { 1.62, 3.71, 11.15 }
 planets = graphics.newImageSheet("assets/img/planets.png", {
     width = 500,
