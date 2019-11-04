@@ -122,7 +122,7 @@ local function gameOver(score)
             isPaused = true
             lastScore = score
         end
-        --timer.performWithDelay(5000, composer.gotoScene("scenes.gameOver", { params={} }))
+        timer.performWithDelay(5000, function () composer.gotoScene("scenes.gameOver") end)
     end
 end
 
