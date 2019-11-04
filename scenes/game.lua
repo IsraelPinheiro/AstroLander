@@ -87,15 +87,17 @@ local function rotateLeft(event)
 end
 
 local function thrust(event)
-    if ( event.phase == "began" ) then
-        display.getCurrentStage():setFocus(event.target)
-        audio.play(sfx_thruster, {channel = 2, loops = -1})
-        isThrusting = true
-    end
-    if ( event.phase == "ended" ) then
-        display.getCurrentStage():setFocus(nil)
-        audio.stop(2)
-        isThrusting = false
+    if(isPaused == false) then
+        if ( event.phase == "began" ) then
+            display.getCurrentStage():setFocus(event.target)
+            audio.play(sfx_thruster, {channel = 2, loops = -1})
+            isThrusting = true
+        end
+        if ( event.phase == "ended" ) then
+            display.getCurrentStage():setFocus(nil)
+            audio.stop(2)
+            isThrusting = false
+        end
     end
 end
 
@@ -111,13 +113,22 @@ local function pause(event)
     end
 end
 
-
 local function gameOver(score)
-    print("You Exploded - Game Over"..score)
+    if(isPaused == false) then
+        if(score>0) then
+            audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
+        else
+            audio.play(sfx_explode)
+            timer.performWithDelay(3000, audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")))
+            isPaused = true
+        end
+        -- timer.performWithDelay(5000, composer.gotoScene("scenes.game", { params={} }))
+    end
 end
 
 -- Collision / Game Over
 local function onShipCollision( self, event )
+    
     vX, vY = ship:getLinearVelocity()
     rotation = ship.rotation
     if ( event.phase == "began" ) then
@@ -126,11 +137,10 @@ local function onShipCollision( self, event )
         if(vY<maxLandingSpeed and absoluteValue(rotation)<maxLandingAngle) then
             -- Score Calc
             score = math.floor(((distance+1)*(fuel/10))/(vY/10))
-            gameOver(score)
         else
-            audio.play(sfx_explode)
-            gameOver(0)
+            score = 0
         end
+        gameOver(score)
     end
 end
 
