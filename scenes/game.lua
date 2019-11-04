@@ -113,6 +113,7 @@ local function pause(event)
     end
 end
 
+-- Collision and Game Over handling
 local function gameOver(score)
     if(isPaused == false) then
         if(score>0) then
@@ -126,7 +127,6 @@ local function gameOver(score)
     end
 end
 
--- Collision / Game Over
 local function onShipCollision( self, event )
     
     vX, vY = ship:getLinearVelocity()
@@ -142,6 +142,67 @@ local function onShipCollision( self, event )
         end
         gameOver(score)
     end
+end
+
+-- Keyboard controls handler
+local function onKeyEvent( event )
+    if (system.getInfo( "platform" ) == "win32" or system.getInfo( "platform" ) == "macos" ) then
+
+    end
+
+    if(event.keyName == "space" or event.keyName == "up" ) then
+        if ( event.phase == "down" ) then
+            display.getCurrentStage():setFocus(event.target)
+            audio.play(sfx_thruster, {channel = 2, loops = -1})
+            isThrusting = true
+        end
+        if ( event.phase == "up" ) then
+            display.getCurrentStage():setFocus(nil)
+            audio.stop(2)
+            isThrusting = false
+        end
+    end
+
+    if(event.keyName == "left") then
+        if ( event.phase == "down" ) then
+            display.getCurrentStage():setFocus(event.target)
+            isRotatingLeft = true
+        end
+        if ( event.phase == "up" ) then
+            display.getCurrentStage():setFocus(nil)
+            isRotatingLeft = false
+        end
+    end
+
+    if(event.keyName == "right") then
+        if ( event.phase == "down" ) then
+            display.getCurrentStage():setFocus(event.target)
+            isRotatingRight = true
+        end
+        if ( event.phase == "up" ) then
+            display.getCurrentStage():setFocus(nil)
+            isRotatingRight = false
+        end
+    end
+
+    if(event.keyName == "escape" or event.keyName == "P") then
+        if isPaused then
+            physics.start()
+            isPaused = false
+        else
+            physics.pause()
+            isPaused = true
+        end
+    end
+ 
+    -- If the "back" key was pressed on Android, prevent it from backing out of the app
+    if ( event.keyName == "back" ) then
+        if (system.getInfo("platform") == "android" ) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -- Game Loop
@@ -289,6 +350,8 @@ function scene:create( event )
 
     -- Game Loop Listener
     Runtime:addEventListener( "enterFrame", gameLoop )
+    -- Keyboard Listener
+    Runtime:addEventListener( "key", onKeyEvent )
 end
 
 -- show()
