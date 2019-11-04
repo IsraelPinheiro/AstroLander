@@ -112,15 +112,14 @@ local function pause(event)
     end
 end
 
-local function gameOver(score)
+local function gameOver()
     if(isPaused == false) then
-        if(score>0) then
+        if(lastScore>0) then
             audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
         else
             audio.play(sfx_explode)
-            timer.performWithDelay(3000, audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")))
+            timer.performWithDelay(3000, function () audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")) end )
             isPaused = true
-            lastScore = score
         end
         timer.performWithDelay(5000, function () composer.gotoScene("scenes.gameOver") end)
     end
@@ -133,13 +132,13 @@ local function onShipCollision( self, event )
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
         distance = absoluteValue(math.floor(distance))
-        if(vY<maxLandingSpeed and absoluteValue(rotation)<maxLandingAngle) then
+        if(vY<maxLandingSpeed and absoluteValue(rotation)<=maxLandingAngle) then
             -- Score Calc
-            score = math.floor(((distance+1)*(fuel/10))/(vY/10))
+            lastScore = math.floor(((distance+1)*(fuel/10))/(vY/10))
         else
-            score = 0
+            lastScore = 0
         end
-        gameOver(score)
+        gameOver()
     end
 end
 
@@ -233,9 +232,10 @@ function scene:create( event )
     -- Player Ship
     shipOutline = graphics.newOutline( 3, "assets/img/ships/"..ships_body[selectedShip] )
     ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
-    ship.anchorX = 0.5
+    --ship.anchorX = 0.5
     ship.x, ship.y = centerX, 50
     physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
+    ship.isFixedRotation = true
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
     
