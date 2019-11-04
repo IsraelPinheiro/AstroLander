@@ -33,4 +33,4 @@ On a successful landing, your score will be determined by your landing spot and 
 **Producer:** Israel Pinheiro.  
 **Programmer:** Israel Pinheiro.  
 **Game Art:** Israel Pinheiro.  
-**Music and SFX:** Andrew Sitkov, Nocturnal Animals, noiseforfun.com and soundbible.com
+**Music and SFX:** Andrew Sitkov, Nocturnal Animals, noiseforfun.com, soundbible.com and NASA
