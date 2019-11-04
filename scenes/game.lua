@@ -118,10 +118,10 @@ local function gameOver()
             audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
         else
             audio.play(sfx_explode)
-            timer.performWithDelay(3000, function () audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")) end )
+            timer.performWithDelay(2500, function () audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")) end )
             isPaused = true
         end
-        timer.performWithDelay(5000, function () composer.gotoScene("scenes.gameOver") end)
+        timer.performWithDelay(4000, function () composer.gotoScene("scenes.gameOver") end)
     end
 end
 
