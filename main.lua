@@ -14,11 +14,11 @@ bestScore = 0
 
 -- Game Settings
 -- Fuel Consumption Rate
-FCR = 1.00
+FCR = 1.50
 startingFuel = 1000
 
 --Landing 
-maxLandingSpeed = 40
+maxLandingSpeed = 60
 maxLandingAngle = 15
 
 --Score
