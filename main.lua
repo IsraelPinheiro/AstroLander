@@ -21,6 +21,9 @@ startingFuel = 1000
 maxLandingSpeed = 40
 maxLandingAngle = 15
 
+--Score
+lastScore = 0
+
 -- Logos
 logos = graphics.newImageSheet("assets/img/logos.png", {
     width = 2160,
