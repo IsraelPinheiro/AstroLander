@@ -111,6 +111,11 @@ local function pause(event)
     end
 end
 
+
+local function gameOver(score)
+    print("You Exploded - Game Over"..score)
+end
+
 -- Collision / Game Over
 local function onShipCollision( self, event )
     vX, vY = ship:getLinearVelocity()
@@ -120,13 +125,11 @@ local function onShipCollision( self, event )
         distance = absoluteValue(math.floor(distance))
         if(vY<maxLandingSpeed and absoluteValue(rotation)<maxLandingAngle) then
             -- Score Calc
-            score =math.floor(((distance+1)*(fuel/10))/(vY/10))
-            print("You Landed - Final Score "..score)
-            --composer.gotoScene("scenes.start")
+            score = math.floor(((distance+1)*(fuel/10))/(vY/10))
+            gameOver(score)
         else
             audio.play(sfx_explode)
-            print("You Exploded - Game Over ")
-            --composer.gotoScene("scenes.start")
+            gameOver(0)
         end
     end
 end
@@ -137,9 +140,13 @@ local function updateSpeed()
     vSpeedIndicator.text = "Vertical Speed: "..string.format("%.2f", absoluteValue(vY))
     hSpeedIndicator.text = "Horizontal Speed: "..string.format("%.2f", absoluteValue(vX))
 end
+
 local function updateAltitude()
+    local hits = physics.rayCast( ship.x, ship.y-1, ship.x , ship.y+1000, "closest" )
+    altitudeIndicator.text = "Altitude: "..string.format("%.2f", math.floor(screenHeight - ship.y-(ship.height/2)) - (screenHeight - hits[1].position.y))
 
 end
+
 local function updateFuel()
     if isThrusting and fuel>0 then
         fuel = fuel-FCR
@@ -213,7 +220,7 @@ function scene:create( event )
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
     
     -- Player Ship
-    shipOutline = graphics.newOutline( 2, "assets/img/ships/"..ships_body[selectedShip] )
+    shipOutline = graphics.newOutline( 3, "assets/img/ships/"..ships_body[selectedShip] )
     ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
     ship.x, ship.y = centerX, 50
     physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
