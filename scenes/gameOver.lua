@@ -6,6 +6,14 @@ composer.recycleOnSceneChange = true
 -- Activate Multitouch
 system.activate( "multitouch" )
 
+
+-- Load Music
+local bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
+
+-- UI Elements
+local UIDefaultFont = "assets/fonts/ConsoleClassic.ttf"
+local background
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -13,7 +21,19 @@ system.activate( "multitouch" )
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
-    -- Code here runs when the scene is first created but has not yet appeared on screen
+    
+    -- Background Image
+    background = display.newImage("assets/img/ui/background.png")
+    background.x, background.y = centerX, centerY
+    background.width, background.height = screenWidth*1.5, screenHeight*1.5
+
+    -- Game Over
+    GameOverText = display.newText("Game Over", centerX, centerY, UIDefaultFont, 150 )
+    GameOverText.anchorX, GameOverText.anchorY = 0.5,0
+
+    -- Game Score
+    GameScore = display.newText(lastScore.." Points", centerX, centerY+100, UIDefaultFont, 150 )
+    GameScore.anchorX, GameScore.anchorY = 0.5,0
 end
  
  
