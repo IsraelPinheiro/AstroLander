@@ -54,6 +54,60 @@ local function goBack(event)
         composer.gotoScene("scenes.start")
     end
 end
+
+-- Keyboard controls handler
+local function onKeyEvent( event )
+    if (system.getInfo( "platform" ) == "win32" or system.getInfo( "platform" ) == "macos" ) then
+
+    end
+
+    if(event.keyName == "space") then
+        if ( event.phase == "down" ) then
+            audio.play(sfx_select)
+            composer.gotoScene("scenes.ships", { params={} })
+        end
+    end
+
+    if(event.keyName == "left") then
+        if ( event.phase == "down" ) then
+            audio.play(sfx_change)
+            if (selectedPlanet == 1) then
+                selectedPlanet = 3
+            else
+                selectedPlanet = selectedPlanet - 1
+            end
+            planet:setFrame(selectedPlanet)
+        end
+    end
+
+    if(event.keyName == "right") then
+        if ( event.phase == "down" ) then
+            audio.play(sfx_change)
+            if (selectedPlanet == 3) then
+                selectedPlanet = 1
+            else
+                selectedPlanet = selectedPlanet + 1
+            end
+            planet:setFrame(selectedPlanet)   
+        end
+    end
+
+    if(event.keyName == "escape") then
+        if ( event.phase == "down" ) then
+            audio.play(sfx_back)
+            composer.gotoScene("scenes.start")
+        end
+    end
+ 
+    -- If the "back" key was pressed on Android, prevent it from backing out of the app
+    if ( event.keyName == "back" ) then
+        if (system.getInfo("platform") == "android" ) then
+            return true
+        end
+    end
+
+    return false
+end
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -109,6 +163,9 @@ function scene:create( event )
     buttonSelect.anchorX, buttonSelect.anchorY = 0.5, 1
     buttonSelect.x, buttonSelect.y = centerX, screenHeight - 50
     buttonSelect:addEventListener( "touch", selectPlanet)
+
+    -- Keyboard Listener
+    Runtime:addEventListener("key", onKeyEvent)
 end
  
 -- show()
@@ -133,6 +190,7 @@ function scene:hide( event )
         buttonRight:removeEventListener( "touch", nextPlanet)
         buttonBack:removeEventListener( "touch", goBack)
         buttonSelect:removeEventListener( "touch", selectPlanet)
+        Runtime:removeEventListener("key", onKeyEvent)
         -- Remove Display Elements
         display.remove(background)
         display.remove(planet)

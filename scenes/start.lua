@@ -19,7 +19,7 @@ local function start(event)
     end
 end
 
-local function changeLogo( event )
+local function changeLogo(event)
     if (event.isShake) then
         if (logo.frame == 3) then
             logo:setFrame(1)
@@ -27,6 +27,29 @@ local function changeLogo( event )
             logo:setFrame(logo.frame+1)
         end
     end
+end
+
+-- Keyboard controls handler
+local function onKeyEvent( event )
+    if (system.getInfo( "platform" ) == "win32" or system.getInfo( "platform" ) == "macos" ) then
+
+    end
+
+    if(event.keyName == "space") then
+        if ( event.phase == "down" ) then
+            audio.play(sfx_select)
+        composer.gotoScene("scenes.planets", { params={} })
+        end
+    end
+
+    -- If the "back" key was pressed on Android, prevent it from backing out of the app
+    if ( event.keyName == "back" ) then
+        if (system.getInfo("platform") == "android" ) then
+            return true
+        end
+    end
+
+    return false
 end
  
 -- -----------------------------------------------------------------------------------
@@ -69,6 +92,9 @@ function scene:create( event )
 
     -- Shake Listener
     Runtime:addEventListener( "accelerometer", changeLogo )
+    
+    -- Keyboard Listener
+    Runtime:addEventListener( "key", onKeyEvent )
 end
 
 -- show()
@@ -93,6 +119,7 @@ function scene:hide( event )
         -- Remove Event Listeners
         buttonStart:removeEventListener( "touch", start)
         Runtime:removeEventListener( "accelerometer", changeLogo )
+        Runtime:removeEventListener( "key", onKeyEvent )
         -- Remove Display Elements
         display.remove(background)
         display.remove(logo)
