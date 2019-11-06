@@ -35,7 +35,7 @@ local function onKeyEvent( event )
 
     end
 
-    if(event.keyName == "space") then
+    if(event.keyName == "space" or event.keyName == "buttonA") then
         if ( event.phase == "down" ) then
             audio.play(sfx_select)
         composer.gotoScene("scenes.planets", { params={} })

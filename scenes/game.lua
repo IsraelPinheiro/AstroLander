@@ -148,7 +148,7 @@ local function onKeyEvent( event )
 
     end
 
-    if(event.keyName == "space" or event.keyName == "up" ) then
+    if(event.keyName == "space" or event.keyName == "up" or event.keyName == "buttonA") then
         if ( event.phase == "down" ) then
             display.getCurrentStage():setFocus(event.target)
             audio.play(sfx_thruster, {channel = 2, loops = -1})
@@ -352,7 +352,7 @@ function scene:create( event )
 
     -- Game Loop Listener
     Runtime:addEventListener("enterFrame", gameLoop)
-    
+
     -- Keyboard Listener
     Runtime:addEventListener("key", onKeyEvent)
 end

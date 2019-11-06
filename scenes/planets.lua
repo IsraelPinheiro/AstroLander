@@ -61,7 +61,7 @@ local function onKeyEvent( event )
 
     end
 
-    if(event.keyName == "space") then
+    if(event.keyName == "space" or event.keyName == "buttonA") then
         if ( event.phase == "down" ) then
             audio.play(sfx_select)
             composer.gotoScene("scenes.ships", { params={} })
@@ -92,7 +92,7 @@ local function onKeyEvent( event )
         end
     end
 
-    if(event.keyName == "escape") then
+    if(event.keyName == "escape" or event.keyName == "buttonB") then
         if ( event.phase == "down" ) then
             audio.play(sfx_back)
             composer.gotoScene("scenes.start")
