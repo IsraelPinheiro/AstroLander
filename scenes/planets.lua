@@ -120,6 +120,7 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
+    display.setStatusBar(display.HiddenStatusBar)
 
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Close Your Eyes.mp3")
