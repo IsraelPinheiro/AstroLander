@@ -116,13 +116,10 @@ end
 local function gameOver()
     if(isPaused == false) then
         isPaused = true
-        if(lastScore>0) then
-            audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
-        else
+        if(lastScore<=0) then
             audio.play(sfx_explode)
-            timer.performWithDelay(2500, function () audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")) end )
         end
-        timer.performWithDelay(5000, function () composer.gotoScene("scenes.gameOver") end)
+        timer.performWithDelay(2000, function () composer.gotoScene("scenes.gameOver") end)
     end
 end
 
@@ -265,9 +262,6 @@ end
 function scene:create( event ) 
     local sceneGroup = self.view
     display.setStatusBar(display.HiddenStatusBar)
-    --physics.setDrawMode("hybrid")
-    -- Reserve 3 Audio Channels
-    audio.reserveChannels(3)
     
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")

@@ -24,6 +24,7 @@ local function tryAgain(event)
         composer.gotoScene("scenes.game")
     end
 end
+
 local function backStart(event)
     if ( event.phase == "began" ) then
         audio.play(sfx_back)
@@ -68,23 +69,19 @@ end
 -- create()
 function scene:create( event )
     local sceneGroup = self.view
+    display.setStatusBar(display.HiddenStatusBar)
+
+    -- Audio Message
+    if(lastScore>0) then
+        audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
+    else
+        audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3"))
+    end
     
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
-
-    -- Text
-    if(lastScore>0) then
-        GameOverText = display.newText("You Landed!", centerX, centerY, UIDefaultFont, 150 )
-    else
-        GameOverText = display.newText("Game Over", centerX, centerY, UIDefaultFont, 150 )
-    end
-    GameOverText.anchorX, GameOverText.anchorY = 0.5,0.5
-
-    -- Game Score
-    GameScore = display.newText(lastScore.." Points", centerX, centerY+100, UIDefaultFont, 150 )
-    GameScore.anchorX, GameScore.anchorY = 0.5,0
 
     -- Try Again Button
     buttonTryAgain = display.newImage("assets/img/ui/tryAgain.png")
@@ -98,6 +95,19 @@ function scene:create( event )
     buttonBackStart.x, buttonBackStart.y = screenWidth/2, screenHeight
     buttonBackStart:addEventListener("touch", backStart)
 
+    -- Text
+    GameOverText = display.newText("", centerX, (screenHeight-buttonBackStart.height)/2, UIDefaultFont, 150 )
+    if(lastScore>0) then
+        GameOverText.text = "You Landed!"
+    else
+        GameOverText.text = "Game Over!"
+    end
+    GameOverText.anchorX, GameOverText.anchorY = 0.5,1
+
+    -- Game Score
+    GameScore = display.newText(lastScore.." Points", centerX, GameOverText.y+50, UIDefaultFont, 150 )
+    GameScore.anchorX, GameScore.anchorY = 0.5,0
+
     -- Keyboard Listener
     Runtime:addEventListener("key", onKeyEvent)
 end
@@ -109,9 +119,9 @@ function scene:show( event )
     local phase = event.phase
 
     if ( phase == "will" ) then
-        -- Code here runs when the scene is still off screen (but is about to come on screen)
+        audio.play(bgMusic, {channel = 1, fadein = 1000, loops = -1})
     elseif ( phase == "did" ) then
-        -- Code here runs when the scene is entirely on screen
+
     end
 end
 
