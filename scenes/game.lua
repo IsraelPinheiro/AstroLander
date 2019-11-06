@@ -54,7 +54,6 @@ local isRotatingLeft = false
 local isRotatingRight = false
 
 --Auxiliar Functions
-
 local function absoluteValue(number)
     if number >= 0 then
         return number
@@ -114,33 +113,32 @@ local function pause(event)
 end
 
 -- Collision and Game Over handling
-local function gameOver(score)
+local function gameOver()
     if(isPaused == false) then
-        if(score>0) then
+        isPaused = true
+        if(lastScore>0) then
             audio.play(audio.loadSound("assets/sounds/sfx/eagle_has_landed.mp3"))
         else
             audio.play(sfx_explode)
-            timer.performWithDelay(3000, audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")))
-            isPaused = true
+            timer.performWithDelay(2500, function () audio.play(audio.loadSound("assets/sounds/sfx/houston_problem.mp3")) end )
         end
-        -- timer.performWithDelay(5000, composer.gotoScene("scenes.game", { params={} }))
+        timer.performWithDelay(5000, function () composer.gotoScene("scenes.gameOver") end)
     end
 end
 
 local function onShipCollision( self, event )
-    
     vX, vY = ship:getLinearVelocity()
     rotation = ship.rotation
     if ( event.phase == "began" ) then
         distance = ship.x-centerX
         distance = absoluteValue(math.floor(distance))
-        if(vY<maxLandingSpeed and absoluteValue(rotation)<maxLandingAngle) then
+        if(vY<maxLandingSpeed and absoluteValue(rotation)<=maxLandingAngle) then
             -- Score Calc
-            score = math.floor(((distance+1)*(fuel/10))/(vY/10))
+            lastScore = math.floor(((distance+1)*(fuel/10))/(vY/10))
         else
-            score = 0
+            lastScore = 0
         end
-        gameOver(score)
+        gameOver()
     end
 end
 
@@ -266,6 +264,8 @@ end
 -- create()
 function scene:create( event ) 
     local sceneGroup = self.view
+    display.setStatusBar(display.HiddenStatusBar)
+    --physics.setDrawMode("hybrid")
     -- Reserve 3 Audio Channels
     audio.reserveChannels(3)
     
@@ -293,8 +293,10 @@ function scene:create( event )
     -- Player Ship
     shipOutline = graphics.newOutline( 3, "assets/img/ships/"..ships_body[selectedShip] )
     ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
+    --ship.anchorX = 0.5
     ship.x, ship.y = centerX, 50
     physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
+    ship.isFixedRotation = true
     ship.collision = onShipCollision
     ship:addEventListener( "collision" )
     
@@ -349,9 +351,9 @@ function scene:create( event )
     buttonThrust:addEventListener( "touch", thrust)
 
     -- Game Loop Listener
-    Runtime:addEventListener( "enterFrame", gameLoop )
+    Runtime:addEventListener("enterFrame", gameLoop)
     -- Keyboard Listener
-    Runtime:addEventListener( "key", onKeyEvent )
+    Runtime:addEventListener("key", onKeyEvent)
 end
 
 -- show()
@@ -373,22 +375,33 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         audio.stop()
-        physics.stop()
         -- Remove Event Listeners
-        buttonPause:removeEventListener( "touch", pause)
-        buttonRight:removeEventListener( "touch", rotateRight)
-        buttonLeft:removeEventListener( "touch", rotateLeft)
-        buttonThrust:removeEventListener( "touch", thrust)
-        Runtime:removeEventListener( "enterFrame", gameLoop )
+        buttonPause:removeEventListener("touch", pause)
+        buttonRight:removeEventListener("touch", rotateRight)
+        buttonLeft:removeEventListener("touch", rotateLeft)
+        buttonThrust:removeEventListener("touch", thrust)
+        Runtime:removeEventListener("enterFrame", gameLoop)
+        Runtime:removeEventListener("key", onKeyEvent)
         -- Remove Display Elements
         display.remove(background)
-        display.remove(planet)
+        display.remove(map)
+        display.remove(ship)
         display.remove(buttonLeft)
         display.remove(buttonRight)
-        display.remove(buttonSelect)
-        display.remove(buttonBack)
-    elseif ( phase == "did" ) then
+        display.remove(buttonThrust)
+        display.remove(buttonPause)
 
+        display.remove(fuelIndicator)
+        display.remove(fuelBar)
+        display.remove(fuelBarFill)
+
+        display.remove(altitudeIndicator)
+        display.remove(hSpeedIndicator)
+        display.remove(vSpeedIndicator)
+
+
+    elseif ( phase == "did" ) then
+        physics.stop()
     end
 end
 
