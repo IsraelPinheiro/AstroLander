@@ -298,7 +298,7 @@ function scene:create( event )
     physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
     ship.isFixedRotation = true
     ship.collision = onShipCollision
-    ship:addEventListener( "collision" )
+    ship:addEventListener("collision")
     
     --Fuel Bar
     fuelBar = display.newImage("assets/img/ui/fuelBar.png")
@@ -352,6 +352,7 @@ function scene:create( event )
 
     -- Game Loop Listener
     Runtime:addEventListener("enterFrame", gameLoop)
+    
     -- Keyboard Listener
     Runtime:addEventListener("key", onKeyEvent)
 end
@@ -376,6 +377,7 @@ function scene:hide( event )
     if ( phase == "will" ) then
         audio.stop()
         -- Remove Event Listeners
+        ship:removeEventListener("collision")
         buttonPause:removeEventListener("touch", pause)
         buttonRight:removeEventListener("touch", rotateRight)
         buttonLeft:removeEventListener("touch", rotateLeft)
@@ -390,17 +392,13 @@ function scene:hide( event )
         display.remove(buttonRight)
         display.remove(buttonThrust)
         display.remove(buttonPause)
-
         display.remove(fuelIndicator)
         display.remove(fuelBar)
         display.remove(fuelBarFill)
-
         display.remove(altitudeIndicator)
         display.remove(hSpeedIndicator)
         display.remove(vSpeedIndicator)
-
-
-    elseif ( phase == "did" ) then
+    elseif (phase == "did") then
         physics.stop()
     end
 end
