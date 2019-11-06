@@ -20,22 +20,14 @@ local buttonBackStart
 -- Event Functions
 local function tryAgain(event)
     if ( event.phase == "began" ) then
-        
-        
-    end
-    if ( event.phase == "ended" ) then
-        
-        
+        audio.play(sfx_back)
+        composer.gotoScene("scenes.game")
     end
 end
 local function backStart(event)
     if ( event.phase == "began" ) then
-        
-        
-    end
-    if ( event.phase == "ended" ) then
-        
-        
+        audio.play(sfx_back)
+        composer.gotoScene("scenes.start")
     end
 end
 
