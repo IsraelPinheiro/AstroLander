@@ -18,8 +18,8 @@ FCR = 1.50
 startingFuel = 1000
 
 --Landing 
-maxLandingSpeed = 60
-maxLandingAngle = 15
+maxLandingSpeed = 50
+maxLandingAngle = 10
 
 --Score
 lastScore = 0
@@ -34,10 +34,10 @@ logos = graphics.newImageSheet("assets/img/logos.png", {
 })
 
 -- Planets
-planets_name = { "Moon","Mars","Neptune" }
-planets_map = { "moon.map.png","mars.map.png","neptune.map.png" }
-planets_G = { 1.62, 3.71, 11.15 }
-planets = graphics.newImageSheet("assets/img/planets.png", {
+planets_name = {"Moon","Mars","Neptune"}
+planets_map = {"moon.map.png","mars.map.png","neptune.map.png"}
+planets_G = { 2.37, 4.75, 9.50}
+planets = graphics.newImageSheet("assets/img/planets.png",{
     width = 500,
     height = 830,
     numFrames = 3,
