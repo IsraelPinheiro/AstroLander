@@ -185,13 +185,15 @@ local function onKeyEvent( event )
         end
     end
 
-    if(event.keyName == "escape" or event.keyName == "P") then
-        if isPaused then
-            physics.start()
-            isPaused = false
-        else
-            physics.pause()
-            isPaused = true
+    if(event.keyName == "escape" or event.keyName == "p" or event.keyName == "buttonSelect") then
+        if (event.phase == "up") then
+            if isPaused then
+                physics.start()
+                isPaused = false
+            else
+                physics.pause()
+                isPaused = true
+            end
         end
     end
  
