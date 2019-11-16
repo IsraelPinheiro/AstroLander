@@ -128,7 +128,6 @@ local function gameOver()
 end
 
 local function onShipCollision( self, event )
-    print(event.other.name)
     vX, vY = ship:getLinearVelocity()
     rotation = ship.rotation
     if (event.phase == "began" and event.other.name~="barrier") then
@@ -146,10 +145,6 @@ end
 
 -- Keyboard controls handler
 local function onKeyEvent( event )
-    if (system.getInfo( "platform" ) == "win32" or system.getInfo( "platform" ) == "macos" ) then
-
-    end
-
     if(event.keyName == "space" or event.keyName == "up" or event.keyName == "buttonA") then
         if ( event.phase == "down" ) then
             display.getCurrentStage():setFocus(event.target)
