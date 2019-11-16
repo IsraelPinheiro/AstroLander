@@ -284,7 +284,9 @@ function scene:create( event )
     map = display.newImage( mapFile )
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
+    map.x = map.x + math.random (-1000, 1000)
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
+
     -- Map Boundaries
     barrierTop = display.newLine(0,0,screenWidth,0)
     barrierTop.name = "barrier"
