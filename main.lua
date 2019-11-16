@@ -3,14 +3,12 @@ local composer = require( "composer" )
 display.setStatusBar(display.HiddenStatusBar)
 centerX = display.contentCenterX
 centerY = display.contentCenterY
-
 screenWidth = display.contentWidth
 screenHeight = display.contentHeight
 
 -- Control Variables
 selectedPlanet = 1
 selectedShip = 1
-bestScore = 0
 
 -- Game Settings
 -- Fuel Consumption Rate
@@ -36,7 +34,7 @@ logos = graphics.newImageSheet("assets/img/logos.png", {
 -- Planets
 planets_name = {"Moon","Mars","Neptune"}
 planets_map = {"moon.map.png","mars.map.png","neptune.map.png"}
-planets_G = { 2.37, 4.75, 9.50}
+planets_G = {2.37, 4.75, 9.50}
 planets = graphics.newImageSheet("assets/img/planets.png",{
     width = 500,
     height = 830,
@@ -58,4 +56,4 @@ ships_body = {"apolo.ship.body.png","dragon.ship.body.png","lk.ship.body.png"}
 ships_mini = {"apolo.ship.png","dragon.ship.png","lk.ship.png"}
 
 -- Go To Star Scene
-composer.gotoScene("scenes.start", { params={} })
+composer.gotoScene("scenes.start")
