@@ -28,6 +28,8 @@ end
 local function backStart(event)
     if ( event.phase == "began" ) then
         audio.play(sfx_back)
+        selectedPlanet = 1
+        selectedShip = 1
         composer.gotoScene("scenes.start")
     end
 end
@@ -48,6 +50,8 @@ local function onKeyEvent( event )
     if(event.keyName == "escape" or event.keyName == "buttonB" or event.keyName == "buttonSelect") then
         if ( event.phase == "down" ) then
             audio.play(sfx_back)
+            selectedPlanet = 1
+            selectedShip = 1
             composer.gotoScene("scenes.start")
         end
     end
