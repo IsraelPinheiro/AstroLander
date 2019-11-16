@@ -26,6 +26,10 @@ local map
 local mapFile
 local mapOutline
 
+local barrierTop
+local barrierLeft
+local barrierRight
+
 local ship
 local shipFile
 local shipOutline
@@ -124,9 +128,10 @@ local function gameOver()
 end
 
 local function onShipCollision( self, event )
+    print(event.other.name)
     vX, vY = ship:getLinearVelocity()
     rotation = ship.rotation
-    if ( event.phase == "began" ) then
+    if (event.phase == "began" and event.other.name~="barrier") then
         distance = ship.x-centerX
         distance = absoluteValue(math.floor(distance))
         if(vY<maxLandingSpeed and absoluteValue(rotation)<=maxLandingAngle) then
@@ -283,7 +288,17 @@ function scene:create( event )
     map.anchorX, map.anchorY = 0.5,1
     map.x, map.y = centerX, screenHeight
     physics.addBody( map, "static", { outline=mapOutline, bounce=0, friction=1 } )
-    
+    -- Map Boundaries
+    barrierTop = display.newLine(0,0,screenWidth,0)
+    barrierTop.name = "barrier"
+    physics.addBody(barrierTop, "static",{bounce=0, friction=0})
+    barrierLeft = display.newLine(0,0,0,screenHeight)
+    barrierLeft.name = "barrier"
+    physics.addBody(barrierLeft, "static",{bounce=0, friction=0})
+    barrierRight = display.newLine(screenWidth,0,screenWidth,screenHeight)
+    barrierRight.name = "barrier"
+    physics.addBody(barrierRight, "static",{bounce=0, friction=0})
+
     -- Player Ship
     shipOutline = graphics.newOutline( 3, "assets/img/ships/"..ships_body[selectedShip] )
     ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
@@ -392,6 +407,7 @@ function scene:hide( event )
         display.remove(altitudeIndicator)
         display.remove(hSpeedIndicator)
         display.remove(vSpeedIndicator)
+        display.remove(barrier)
     elseif (phase == "did") then
         physics.stop()
     end
