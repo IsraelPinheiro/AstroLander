@@ -6,7 +6,6 @@ composer.recycleOnSceneChange = true
 -- Activate Multitouch
 system.activate( "multitouch" )
 
-
 -- Load Music
 local bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
 
@@ -15,7 +14,6 @@ local UIDefaultFont = "assets/fonts/ConsoleClassic.ttf"
 local background
 local buttonTryAgain
 local buttonBackStart
-
 
 -- Event Functions
 local function tryAgain(event)
@@ -115,8 +113,7 @@ function scene:create( event )
     -- Keyboard Listener
     Runtime:addEventListener("key", onKeyEvent)
 end
- 
- 
+
 -- show()
 function scene:show( event )
     local sceneGroup = self.view
@@ -143,7 +140,6 @@ function scene:hide( event )
         Runtime:removeEventListener("key", onKeyEvent)
 
     elseif ( phase == "did" ) then
-        -- Code here runs immediately after the scene goes entirely off screen
 
     end
 end
@@ -151,8 +147,6 @@ end
 -- destroy()
 function scene:destroy( event )
     local sceneGroup = self.view
-    -- Code here runs prior to the removal of scene's view
-
 end
 
 -- -----------------------------------------------------------------------------------

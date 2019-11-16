@@ -264,20 +264,20 @@ end
 function scene:create( event ) 
     local sceneGroup = self.view
     display.setStatusBar(display.HiddenStatusBar)
-    
+
     -- Load Music
     bgMusic = audio.loadSound("assets/sounds/music/Lockdown.mp3")
-    
+
     -- Load SFX
     sfx_select = audio.loadSound("assets/sounds/sfx/select.wav")
     sfx_thruster = audio.loadSound("assets/sounds/sfx/rocketThruster.mp3")
     sfx_explode = audio.loadSound("assets/sounds/sfx/explode.mp3")
-    
+
     -- Background Image
     background = display.newImage("assets/img/ui/background.png")
     background.x, background.y = centerX, centerY
     background.width, background.height = screenWidth*1.5, screenHeight*1.5
-    
+
     --Map
     mapFile = "assets/img/maps/"..planets_map[selectedPlanet]
     mapOutline = graphics.newOutline( 2, mapFile )
@@ -301,22 +301,21 @@ function scene:create( event )
     -- Player Ship
     shipOutline = graphics.newOutline( 3, "assets/img/ships/"..ships_body[selectedShip] )
     ship = display.newImage("assets/img/ships/"..ships_mini[selectedShip])
-    --ship.anchorX = 0.5
     ship.x, ship.y = centerX, 50
     physics.addBody( ship, "dynamic",{outline=shipOutline, bounce=0, friction=1})
     ship.isFixedRotation = true
     ship.collision = onShipCollision
     ship:addEventListener("collision")
-    
+
     --Fuel Bar
     fuelBar = display.newImage("assets/img/ui/fuelBar.png")
     fuelBar.anchorX, fuelBar.anchorY = 0,0
-    
+
     --Fuel Bar Fill
     fuelBarFill = display.newImage("assets/img/ui/fuelBarFill.png")
     fuelBarFill.anchorX, fuelBarFill.anchorY = 0,0
     fuelBarFill.width = (screenWidth/startingFuel)*fuel
-    
+
     --Fuel Indicator
     fuelIndicator = display.newText( fuel, screenWidth-10, 25, UIDefaultFont, 50 )
     fuelIndicator.anchorX, fuelIndicator.anchorY = 1,0.5
@@ -325,11 +324,11 @@ function scene:create( event )
     -- Altitude Indicator
     altitudeIndicator = display.newText("Altitude: "..altitude, screenWidth-10, 70, UIDefaultFont, 50 )
     altitudeIndicator.anchorX, altitudeIndicator.anchorY = 1,0.5
-    
+
     -- Vertical Speed Indicator
     vSpeedIndicator = display.newText("Vertical Speed: "..vSpeed, screenWidth-10, 110, UIDefaultFont, 50 )
     vSpeedIndicator.anchorX, vSpeedIndicator.anchorY = 1,0.5
-    
+
     -- Horizontal Speed indicator
     hSpeedIndicator = display.newText("Horizontal Speed: "..hSpeed, screenWidth-10, 150, UIDefaultFont, 50 )
     hSpeedIndicator.anchorX, hSpeedIndicator.anchorY = 1,0.5
@@ -381,7 +380,6 @@ end
 function scene:hide( event )
     local sceneGroup = self.view
     local phase = event.phase
-
     if ( phase == "will" ) then
         audio.stop()
         -- Remove Event Listeners
@@ -425,5 +423,4 @@ scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 -- -----------------------------------------------------------------------------------
-
 return scene
