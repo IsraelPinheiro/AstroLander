@@ -22,6 +22,8 @@ local sfx_explode
 local UIDefaultFont = "assets/fonts/ConsoleClassic.ttf"
 local background
 
+local pauseText
+
 local map
 local mapFile
 local mapOutline
@@ -107,9 +109,12 @@ end
 local function pause(event)
     if ( event.phase == "ended" ) then
         if isPaused then
+            display.remove(pauseText)
             physics.start()
             isPaused = false
         else
+            pauseText = display.newText("Paused", centerX, centerY, UIDefaultFont, 200 )
+            pauseText.anchorX, pauseText.anchorY = 0.5,0.5
             physics.pause()
             isPaused = true
         end
@@ -183,9 +188,12 @@ local function onKeyEvent( event )
     if(event.keyName == "escape" or event.keyName == "p" or event.keyName == "buttonSelect") then
         if (event.phase == "up") then
             if isPaused then
+                display.remove(pauseText)
                 physics.start()
                 isPaused = false
             else
+                pauseText = display.newText("Paused", centerX, centerY, UIDefaultFont, 200 )
+                pauseText.anchorX, pauseText.anchorY = 0.5,0.5
                 physics.pause()
                 isPaused = true
             end
