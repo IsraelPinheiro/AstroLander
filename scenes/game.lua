@@ -132,10 +132,10 @@ local function onShipCollision( self, event )
     rotation = ship.rotation
     if (event.phase == "began" and event.other.name~="barrier") then
         distance = ship.x-centerX
-        distance = absoluteValue(math.floor(distance))
-        if(vY<maxLandingSpeed and absoluteValue(rotation)<=maxLandingAngle) then
+        distance = absoluteValue(math.floor(distance))+1
+        if(vY<maxLandingSpeed and absoluteValue(rotation)<=maxLandingAngle and altitude<=2.5) then
             -- Score Calc
-            lastScore = math.floor(((distance+1)*(fuel/10))/(vY/10))
+            lastScore = math.floor(((distance/screenWidth)*15)*(fuel*0.2))
         else
             lastScore = 0
         end
@@ -211,7 +211,8 @@ end
 
 local function updateAltitude()
     local hits = physics.rayCast( ship.x, ship.y-1, ship.x , ship.y+1000, "closest" )
-    altitudeIndicator.text = "Altitude: "..string.format("%.2f", math.floor(screenHeight - ship.y-(ship.height/2)) - (screenHeight - hits[1].position.y))
+    altitude = math.floor(screenHeight - ship.y-(ship.height/2)) - (screenHeight - hits[1].position.y)
+    altitudeIndicator.text = "Altitude: "..string.format("%.2f", altitude)
 
 end
 
